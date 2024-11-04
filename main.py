@@ -2,46 +2,31 @@
 SPACE INVADERS
 
 """
+from tkinter import Tk, Label, Button, StringVar, Entry, Frame
 
+class render:
+    def __init__(self) -> None:
+        """TKinter initialisation"""
+        tk = Tk()
+        tk.title("SI-CPE")
+        tk.geometry('700x500')
 
-class ship:
-    def __init__(self, hp, position, size,weapon, speed = (0,0), sprite = 0) -> None:
-        self.HPMax = hp
-        self.HP = hp
-        self.speed = speed
-        self.MAXspeed = (4,4)
-        self.pos = position
-        self.size = size
-        self.sprite = sprite
-        self.weapon = weapon
+        """Frame TOP"""
+        FrameTOP = Frame(tk).pack(side='top')
 
-    def hit(self, projectile):
-        self.hp -= projectile.dmg
-    
-    def shoot(self):
-        self.weapon.shoot()
+        #Label de titre
+        labelHello = Label(FrameTOP, text="Space Invaders the game !", fg='black', font=("Arial",20)).pack(side='top')
+        """Frame MIDDLE"""
+        FrameMIDDLE = Frame(tk, bd=5).pack()
 
-    def move(self):
-        self.pos[0] += self.speed[0]
-        self.pos[1] += self.speed[1]
+        """Frame BOTTOM"""
+        FrameBOTTOM = Frame(tk).pack(side='bottom')
+        #Boutton quit
+        buttonQuit = Button(FrameBOTTOM, text="QUIT", fg='red', command=tk.destroy).pack(side='bottom')
         
-class weapon:
-    def __init__(self, dmg, sprite = 0) -> None:
-        self.projectile = []
-        self.dmg = dmg
-        self.sprite = sprite
+        """NOTHING AFTER THIS LINE"""
+        tk.mainloop()
 
-    def shoot(self):
-        proj = Projectile((0, 0), (0, 0), 15)
-        self.projectile.append(proj)
-
-class Projectile:
-    def __init__(self, position, speed, dmg, sprite = 0) -> None:
-        self.pos = position
-        self.speed = speed
-        self.dmg = dmg
-        self.sprite = sprite
-
-
-
+if __name__ == "__main__":
+    render()
 
