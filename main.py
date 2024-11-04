@@ -66,10 +66,8 @@ class StartPage(tk.Frame):
         button2.grid(row = 3, column = 2, padx = 10, pady = 10)
 
         button3 = ttk.Button(self, text ="QUIT", 
-                             command = lambda : controller.destroy)
-        button3.grid(row = 5, column = 2, padx = 10, pady = 10)
-  
-          
+                             command = lambda : controller.destroy())
+        button3.grid(row = 5, column = 2, padx = 10, pady = 10)         
   
 class Jeu(tk.Frame):
     def __init__(self, parent, controller):
@@ -83,7 +81,7 @@ class Jeu(tk.Frame):
         button1.grid(row = 2, column = 2, padx = 10, pady = 10)
 
         button3 = ttk.Button(self, text ="QUIT", 
-                             command = lambda : controller.destroy)
+                             command = lambda : controller.destroy())
         button3.grid(row = 5, column = 2, padx = 10, pady = 10)
   
 class Menu(tk.Frame): 
@@ -98,7 +96,7 @@ class Menu(tk.Frame):
         button1.grid(row = 2, column = 2, padx = 10, pady = 10)
 
         button3 = ttk.Button(self, text ="QUIT", 
-                             command = lambda : controller.destroy)
+                             command = lambda : controller.destroy())
         button3.grid(row = 5, column = 2, padx = 10, pady = 10)
 
 # Driver Code
