@@ -17,4 +17,8 @@ class Jeu(tk.Frame):
         button3 = ttk.Button(self, text ="QUIT", 
                              command = lambda : controller.destroy())
         button3.grid(row = 5, column = 2, padx = 10, pady = 10)
+        
+        
+        
+        
   

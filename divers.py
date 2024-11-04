@@ -1,7 +1,7 @@
-class vector:
-    def __init__(self,x,y) -> None:
+class Vector:
+    def __init__(self,x, y) -> None:
         self.x = x
         self.y = y
     
-    def prods(self,vector2):
-        return self.x+vector2[0],self.y+vector2[1]
+    def prods(vector1,vector2):
+        return vector1.x*vector2.x + vector1.y*vector2.y

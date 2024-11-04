@@ -3,29 +3,30 @@ SPACE INVADERS
 
 """
 
-
-class ship:
-    def __init__(self, hp:int, position, size,weapon, speed = (0,0), sprite = 0) -> None:
-        """_summary_
-
-        Args:
-            hp (int): _description_
-            position (_type_): _description_
-            size (_type_): _description_
-            weapon (_type_): _description_
-            speed (tuple, optional): _description_. Defaults to (0,0).
-            sprite (int, optional): _description_. Defaults to 0.
-        """
-class ship:
-    def __init__(self, hp, position, size,weapon, speed = (0,0), sprite = 0) -> None:
+class Element:
+    def __init__(self, pos, size):
+        self.pos = pos ## en (x,y)
+        self.size = size ## en (x,y)
+        
+    def touched(e1, e2):
+        return not((e2.pos.x > e1.pos.x + e1.size.x - 1) or (e1.pos.x > e2.pos.x + e2.size.x - 1) and 
+                   (e2.pos.y > e1.pos.y + e1.size.y - 1) or (e1.pos.y > e2.pos.y + e2.size.y - 1))
+        
+        ### regarde si les deux objets rectangulaires sont l'un dans l'autre (se touchent)
+        
+        
+class ship(Element): # herite de ELEMENT pour gerer les collisions simplement
+    def __init__(self, hp, position, size, weapon, speed = (0,0), sprite = 0) -> None:
+        super.__init__(position, size)
         self.HPMax = hp
         self.HP = hp
+        
         self.speed = speed
         self.MAXspeed = (4,4)
-        self.pos = position
-        self.size = size
-        self.sprite = sprite
+        
         self.weapon = weapon
+        
+        self.sprite = sprite
 
     def hit(self, projectile):
         self.hp -= projectile.dmg
@@ -34,23 +35,23 @@ class ship:
         self.weapon.shoot()
 
     def move(self):
-        self.pos[0] += self.speed[0]
-        self.pos[1] += self.speed[1]
+        self.pos.x += self.speed.x
+        self.pos.y += self.speed.y
         
 
 class weapon:
     def __init__(self, dmg, sprite = 0) -> None:
-        self.projectile = []
+        self.projectiles = []
         self.dmg = dmg
         self.sprite = sprite
 
     def shoot(self):
-        proj = Projectile((0, 0), (0, 0), 15)
-        self.projectile.append(proj)
+        proj = Projectile()
+        self.projectiles.append(proj)
 
-class Projectile:
-    def __init__(self, position, speed, dmg, sprite = 0) -> None:
-        self.pos = position
+class Projectile(Element):
+    def __init__(self, position, size, speed, dmg, sprite = 0) -> None:
+        super.__init__(position, size)
         self.speed = speed
         self.dmg = dmg
         self.sprite = sprite

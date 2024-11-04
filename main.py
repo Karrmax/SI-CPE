@@ -1,9 +1,9 @@
 
 import tkinter as tk
 from tkinter import ttk
-from Startpage import StartPage
-from Jeu import Jeu
-from Menu import Menu
+from frames.Startpage import StartPage
+from frames.Jeu import Jeu
+from frames.Menu import Menu
 
 LARGEFONT = "Verdana"
   
