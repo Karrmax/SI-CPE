@@ -16,6 +16,8 @@ class ship:
             speed (tuple, optional): _description_. Defaults to (0,0).
             sprite (int, optional): _description_. Defaults to 0.
         """
+class ship:
+    def __init__(self, hp, position, size,weapon, speed = (0,0), sprite = 0) -> None:
         self.HPMax = hp
         self.HP = hp
         self.speed = speed
@@ -35,6 +37,7 @@ class ship:
         self.pos[0] += self.speed[0]
         self.pos[1] += self.speed[1]
         
+
 class weapon:
     def __init__(self, dmg, sprite = 0) -> None:
         self.projectile = []
