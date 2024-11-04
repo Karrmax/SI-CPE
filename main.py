@@ -163,4 +163,5 @@ app.mainloop()
 #         tk.mainloop()
 
 if __name__ == "__main__":
+    pass
     # render()
