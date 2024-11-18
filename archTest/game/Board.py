@@ -1,11 +1,13 @@
-from game.ship import Element
-
+from game.ship import Element, Enemy, Weapon, Ship
+from divers.Vector import Vector 
 class Board:
-    def __init__(self, width, height):
+    def __init__(self, width, height, loadManager, stage = 0):
         self.width = width
         self.height = height
         self.entities = []
         self.col = []
+        self.numStage = stage
+        self.load_manager = loadManager
         
     def remove(self, entity):
         self.entities.remove(entity)
@@ -30,6 +32,66 @@ class Board:
         for i in self.col:
             if element in i:
                 return i[((i.index(element))-1)**2]
-                
             
+    def loadStage(self):
+        self.removeALLExceptMainShip()
+        if self.numStage == 0:
+            weaponsprite = self.load_manager.get_resource('fire')
+            enemyWeapon = Weapon(10, weaponsprite)
+            enemySprite = self.load_manager.get_resource('enemy')
+            for i in range(3):
+                for j in range(6):
+                    e = Enemy(self, 1, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, enemySprite, Vector(3, 0))
+                    self.entities.append(e)
+                    
+        if self.numStage == 1:
+            weaponsprite = self.load_manager.get_resource('fire')
+            enemyWeapon = Weapon(10, weaponsprite)
+            enemySprite = self.load_manager.get_resource('enemy')
+            for i in range(3):
+                for j in range(6):
+                    e = Enemy(self, 1, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, enemySprite)
+                    self.entities.append(e)
+            
+    def loadEnemies(self, enemies):
+        pass
+        
+        
+    def removeALLExceptMainShip(self):
+        for i in self.entities:
+            if not isinstance(i, Ship):
+                self.remove(i)
+                
+    def isStageFinished(self):
+        for i in self.entities:
+            if isinstance(i, Enemy):
+                return 
+        return True
     
+    def nextStage(self):
+        self.numStage += 1
+        self.loadStage()
+        
+    def getAllEnemies(self):
+        res = []
+        for i in self.entities:
+            if isinstance(i, Enemy):
+                res.append(i)
+        return res
+        
+    def manageEnemiesMoves(self):
+        e = self.getAllEnemies()
+        for i in e:
+            # print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            if i.outOfBoard():
+                
+                # print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                self.reversMovement(e)
+                return
+            
+    def reversMovement(self, e):
+        for i in e:
+            # print("aaaaaaaaaahgvjhgcgfcuycfyrtdtyrd")
+            # print( i.speed)
+            # i.speed = Vector(- i.speed.x, -i.speed.y)
+            i.speed = -1 *  i.speed

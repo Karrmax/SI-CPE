@@ -21,6 +21,9 @@ class Element:
     def changeState(self, input):
         pass
     
+    def hit(self, proj):
+        pass
+    
     def touched(e1, e2):
         return (e1.pointIn(e2.pos) or e1.pointIn(e2.pos + e2.size) or e1.pointIn(Vector(e2.pos.x + e2.size.x, e2.pos.y)) or e1.pointIn(Vector(e2.pos.x, e2.pos.y + e2.size.y)) or
                 e2.pointIn(e1.pos) or e2.pointIn(e1.pos + e2.size) or e2.pointIn(Vector(e1.pos.x + e1.size.x, e1.pos.y)) or e2.pointIn(Vector(e1.pos.x, e1.pos.y + e1.size.y)))
@@ -85,11 +88,16 @@ class Enemy(Character):
         pass
     
     def update(self):
-        print(self.HP)
+        # print(self.HP)
         if self.HP <= 0:
             self.__del__()
         else:     
             self.move()
+            
+    def move(self):
+        print(self.pos)
+        self.pos.x += self.speed.x
+        self.pos.y += self.speed.y 
         
     def __del__(self):
         self.board.remove(self)
@@ -133,7 +141,7 @@ class Weapon:
         
         self.projSize = Vector(10, 52)
         self.speed = 8
-        self.coolDown = CoolDown(1)
+        self.coolDown = CoolDown(.3)
 
     def shoot(self, ship):
         if self.coolDown.isEnable():
@@ -164,7 +172,7 @@ class Projectile(Element):
         if self.board.colided(self):
             elementTouched = self.board.colidedBy(self)
             elementTouched.hit(self) 
-            print(elementTouched.HP)
+            # print(elementTouched.HP)
             self.__del__()
             return
     

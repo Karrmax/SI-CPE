@@ -17,12 +17,11 @@ class Vector:
         return Vector(self.x - vect.x, self.y - vect.y)
     
     def __mul__(self, other):
-        if isinstance(other, Vector):
+        if isinstance(other, int):
             return Vector(self.x * other, self.y * other)
         
     def __rmul__(self, other):
-        if isinstance(other, Vector):
-            return Vector(self.x * other, self.y * other)
+        return self * other
         
     # def __copy__(self):
     #     cls = self.__class__

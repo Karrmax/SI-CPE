@@ -13,7 +13,7 @@ class GameLogic:
         self.inputManager = InputManager()
         self.renderManager = RenderManager(self.canvas)
         
-        self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight())
+        self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
 
         self.running = False
 
@@ -31,25 +31,19 @@ class GameLogic:
         
         ## ajout du vaisseau main
         
-        weaponsprite = self.load_manager.get_resource('fire')
-        mainWeapon = Weapon(10, weaponsprite)
-        myMainSprite = self.load_manager.get_resource('ship')
+        self.loadShip()
         
-        mainShip = Ship(self.board, 100, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
-        mainShip.pos.x = self.board.width/2
-        mainShip.pos.y = self.board.height * 4/5
+
+        self.board.loadStage()
         
-        self.board.entities.append(mainShip)
+        # ## ajout d'un enemy 
+        # weaponsprite = self.load_manager.get_resource('fire')
+        # enemyWeapon = Weapon(10, weaponsprite)
+        # enemySprite = self.load_manager.get_resource('enemy')
         
+        # enemy = Enemy(self.board, 20, Vector(100, 100), Vector(40, 40), enemyWeapon, enemySprite)
         
-        ## ajout d'un enemy 
-        weaponsprite = self.load_manager.get_resource('fire')
-        enemyWeapon = Weapon(10, weaponsprite)
-        enemySprite = self.load_manager.get_resource('enemy')
-        
-        enemy = Enemy(self.board, 20, Vector(100, 100), Vector(40, 40), enemyWeapon, enemySprite)
-        
-        self.board.entities.append(enemy)
+        # self.board.entities.append(enemy)
         
         
         self.game_loop()
@@ -78,6 +72,9 @@ class GameLogic:
         
         inputs = self.inputManager.get_inputs()
         # changeState game state based on inputs
+        self.board.manageEnemiesMoves()
+        if self.board.isStageFinished():
+            self.board.nextStage()
         for entity in self.board.entities:
             entity.changeState(inputs)
             
@@ -91,3 +88,15 @@ class GameLogic:
 
     def render(self):
         self.renderManager.render(self.board.entities)
+        
+        
+    def loadShip(self):
+        weaponsprite = self.load_manager.get_resource('fire')
+        mainWeapon = Weapon(10, weaponsprite)
+        myMainSprite = self.load_manager.get_resource('ship')
+        
+        mainShip = Ship(self.board, 100, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
+        mainShip.pos.x = self.board.width/2
+        mainShip.pos.y = self.board.height * 4/5
+        
+        self.board.entities.append(mainShip)
