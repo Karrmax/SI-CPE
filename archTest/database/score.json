@@ -1,12 +1,24 @@
 {
-    "leaderboard":[
+    "leaderboard": [
         {
-            "name":"Mon nom",
-            "score":10000
+            "name": "Paul",
+            "score": 60,
+            "stage": 1
         },
         {
-            "name":"Mon nom",
-            "score":10000
+            "name": "Aul",
+            "score": 100,
+            "stage": 1
+        },
+        {
+            "name": "Ul",
+            "score": 3,
+            "stage": 3
+        },
+        {
+            "name": "L",
+            "score": 3,
+            "stage": 1
         }
     ]
 }

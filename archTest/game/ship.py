@@ -85,7 +85,7 @@ class Enemy(Character):
         pass
     
     def update(self):
-        print(self.HP)
+        # print(self.HP)
         if self.HP <= 0:
             self.__del__()
         else:     
@@ -164,7 +164,7 @@ class Projectile(Element):
         if self.board.colided(self):
             elementTouched = self.board.colidedBy(self)
             elementTouched.hit(self) 
-            print(elementTouched.HP)
+            # print(elementTouched.HP)
             self.__del__()
             return
     
