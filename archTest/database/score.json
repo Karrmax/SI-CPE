@@ -1,0 +1,12 @@
+{
+    "leaderboard":[
+        {
+            "name":"Mon nom",
+            "score":10000
+        },
+        {
+            "name":"Mon nom",
+            "score":10000
+        }
+    ]
+}
