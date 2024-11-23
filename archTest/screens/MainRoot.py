@@ -31,7 +31,10 @@ class MainRoot:
         if self.currentScreen:
             self.currentScreen.pack_forget()
         self.currentScreen = self.screens[screen_name]
+        
         self.currentScreen.pack(fill=tk.BOTH, expand=True)
+        if isinstance(self.currentScreen, GameScreen):
+            self.currentScreen.start_game_loop()
 
     def start(self):
         self.root.mainloop()

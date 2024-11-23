@@ -1,12 +1,11 @@
 from game.ship import Element, Enemy, Weapon, Ship
 from divers.Vector import Vector 
 class Board:
-    def __init__(self, width, height, loadManager, stage = 0):
+    def __init__(self, width, height, loadManager):
         self.width = width
         self.height = height
         self.entities = []
         self.col = []
-        self.numStage = stage
         self.load_manager = loadManager
         
     def remove(self, entity):
@@ -32,6 +31,17 @@ class Board:
         for i in self.col:
             if element in i:
                 return i[((i.index(element))-1)**2]
+            
+    def reset(self):
+        self.entities = []
+        self.col = []
+        
+    def __del__(self):
+        del self.width
+        del self.height
+        del self.entities
+        del self.col
+        del self.load_manager
             
     # def loadStage(self):
     #     self.removeALLExceptMainShip()

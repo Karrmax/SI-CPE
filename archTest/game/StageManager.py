@@ -71,3 +71,10 @@ class Stage:
             if isinstance(i, Enemy):
                 res.append(i)
         return res
+    
+    def reset(self):
+        """
+        Réinitialise le gestionnaire de stage.
+        """
+        self.numStage = 0
+        self.generateStage()

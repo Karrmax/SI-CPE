@@ -13,3 +13,6 @@ class LoadManager:
 
     def get_resource(self, name):
         return self.resources.get(name, None)
+    
+    def __del__(self):
+        del self.resources

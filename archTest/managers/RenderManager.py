@@ -26,3 +26,6 @@ class RenderManager:
             else :
                 print("has not sprite")
                 self.canvas.create_rectangle(entity.pos.x, entity.pos.y, entity.pos.x + 20, entity.pos.y + 20, fill="white")
+
+    def __del__(self):
+        del self.canvas

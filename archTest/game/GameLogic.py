@@ -38,7 +38,6 @@ class GameLogic:
         ## ajout du vaisseau main
         
         self.loadShip()
-        # self.stage_manager.loadStage()
         self.game_loop()
 
     def stop(self):
@@ -95,3 +94,14 @@ class GameLogic:
         mainShip.pos.y = self.board.height * 4/5
         
         self.board.entities.append(mainShip)
+        
+    def reset(self):
+        self.board.reset()
+        self.stage_manager.reset()
+        print(self.stage_manager.numStage)
+        self.running = False
+        
+        def __del__(self):
+            self.stop()
+            del self.board
+            del self.render_manager
