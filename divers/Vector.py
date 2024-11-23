@@ -26,13 +26,40 @@ class Vector:
     def __neg__(self):
         return -1 * self
         
-    # def __copy__(self):
-    #     cls = self.__class__
-    #     result = cls.__new__(cls)
-    #     result.__dict__.update(self.__dict__)
-    #     return result
-    #     return Vector(self.x, self.y)
-        
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def magnitude(self):
+        return (self.x**2 + self.y**2)**0.5
+
+    def normalize(self):
+        mag = self.magnitude()
+        if mag == 0:
+            return Vector(0, 0)
+        return Vector(self.x / mag, self.y / mag)
+    
+    def __copy__(self):
+        return Vector(self.x, self.y)
+
+    def __deepcopy__(self, memo):
+        if id(self) in memo:
+            return memo[id(self)]
+        copy_obj = Vector(self.x, self.y)
+        memo[id(self)] = copy_obj
+        return copy_obj
+
+    def prods(self, vector):
+        return self.x * vector.x + self.y * vector.y
+
+    def scale(self, scalar):
+        return Vector(self.x * scalar, self.y * scalar)
+
+    def to_tuple(self):
+        return (self.x, self.y)
+
+    @staticmethod
+    def from_tuple(t):
+        return Vector(t[0], t[1])
     
 NULLVECTOR = Vector(0, 0)
     

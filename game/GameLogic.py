@@ -12,13 +12,9 @@ class GameLogic:
         
         self.load_manager = load_manager
         self.inputManager = InputManager()
-        self.renderManager = RenderManager(self.canvas)
+        self.renderManager = RenderManager(self.canvas, self.load_manager.get_resource('background'))
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
-        
-        
-        
-        
         
         self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy'), self.load_manager.get_resource('fire'))
         self.running = False
@@ -61,22 +57,13 @@ class GameLogic:
 
 
     def changeState(self):
-        
         inputs = self.inputManager.get_inputs()
-        # changeState game state based on inputs
-        # self.board.manageEnemiesMoves()
         self.stage_manager.changeStates()
-        
-        # if self.board.isStageFinished():
-        #     self.board.nextStage()
         for entity in self.board.entities:
             entity.changeState(inputs)
             
     def update(self):
-        
         self.board.manageCollisions()
-        # print(self.board.col)
-        # Update game state based on state
         for entity in self.board.entities:
             entity.update()
 
@@ -100,6 +87,12 @@ class GameLogic:
         self.stage_manager.reset()
         print(self.stage_manager.numStage)
         self.running = False
+        
+    def pause(self):
+        self.running = False
+        
+    def unPause(self):
+        self.running = True
         
         def __del__(self):
             self.stop()

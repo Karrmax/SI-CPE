@@ -10,7 +10,9 @@ class LoadManager:
         self.resources["ship"] = ImageTk.PhotoImage(Image.open("ressources/images/pngegg.png").resize((60, 60)))
         self.resources["fire"] = ImageTk.PhotoImage(Image.open("ressources/images/fire.png").resize((10, 58)))
         self.resources["enemy"] = ImageTk.PhotoImage(Image.open("ressources/images/enemy.png").resize((40, 40)))
-
+        self.resources['background'] = ImageTk.PhotoImage(Image.open("ressources/images/background.jpg"))
+        print("Resources loaded.")
+        
     def get_resource(self, name):
         return self.resources.get(name, None)
     

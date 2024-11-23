@@ -1,5 +1,5 @@
 import json
-filename = 'archTest/database/score.json'
+filename = 'database/score.json'
 
 class ScoreManager:
     def __init__(self) -> None:

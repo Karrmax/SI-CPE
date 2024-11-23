@@ -42,10 +42,7 @@ class Element:
             (self.pos.y + self.size.y < 0 or self.pos.y - self.size.y > self.board.height)) 
     
     def __del__(self):
-        self.board = 0
-        self.pos = NULLVECTOR
-        self.size = NULLVECTOR
-        self.sprite = False
+        self.board.remove(self)
         
 
 class Character(Element): # herite de ELEMENT pour gerer les collisions simplement
@@ -100,7 +97,7 @@ class Enemy(Character):
         self.pos.y += self.speed.y 
         
     def __del__(self):
-        self.board.remove(self)
+        # self.board.remove(self)
         return super().__del__()
         
         
@@ -171,32 +168,19 @@ class Projectile(Element):
     def update(self):
         if self.board.colided(self):
             elementTouched = self.board.colidedBy(self)
-            elementTouched.hit(self) 
-            # print(elementTouched.HP)
-            self.__del__()
-            return
+            elementTouched.hit(self)
     
         self.move()
         if self.outOfBoardLarge():
-            # print(self.board)  
             self.__del__()
-            
-            
-    def changeState(self, inputs):
-        pass
     
     def __del__(self):
-        self.board.remove(self)
-        self.speed = NULLVECTOR
-        self.dmg = 0
         super().__del__()
         
         
 class CoolDown():
     def __init__(self, CD):
-        # self.action = action
         self.CD = CD
-        
         self.lastTime = time.time()
         
         ## will time and enable the action only when lastTime = time 

@@ -10,7 +10,7 @@ class MainRoot:
         self.root.title("Tkinter Game")
         # self.root.attributes("-toolwindow", True)
         self.root.state('zoomed')
-        self.root.bind("<Configure>", resize)
+        # self.root.bind("<Configure>", resize)
 
     
         self.loadManager = LoadManager()
@@ -21,8 +21,8 @@ class MainRoot:
         self.init_screens()
 
     def init_screens(self):
-        self.screens["lobby"] = LobbyScreen(self.root, self.switch_screen)
-        self.screens["leaderboard"] = LeaderboardScreen(self.root, self.switch_screen)
+        self.screens["lobby"] = LobbyScreen(self.root, self.switch_screen, self.loadManager)
+        self.screens["leaderboard"] = LeaderboardScreen(self.root, self.switch_screen, self.loadManager)
         self.screens["game"] = GameScreen(self.root, self.switch_screen, self.loadManager)
 
         self.switch_screen("lobby")

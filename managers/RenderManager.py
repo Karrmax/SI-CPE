@@ -2,25 +2,20 @@ from tkinter import NW
 from PIL import ImageTk
  
 class RenderManager:
-    def __init__(self, canvas):
+    def __init__(self, canvas, background_image):
         self.canvas = canvas
+        self.background_image = background_image
 
     def render(self, entities):
         self.canvas.delete("all")
+        self.canvas.create_image(0, 0, image=self.background_image, anchor="nw")
         for entity in entities:
             if entity.hasSprite():
-                # self.canvas.images = []
-                # Resize and render the sprite
-                # resized_sprite = entity.sprite.resize((entity.size.x, entity.size.y))
-                # tk_sprite = ImageTk.PhotoImage(resized_sprite)
+ 
                 self.canvas.create_image(entity.pos.x, entity.pos.y, image=entity.sprite, anchor="nw")
                 
-                # Prevent garbage collection
-                # self.canvas.images.append(tk_sprite)
-                
-                
                 #################   SHOW HIT BOX   ##############
-                self.canvas.create_rectangle(entity.pos.x, entity.pos.y, entity.pos.x + entity.size.x , entity.pos.y + entity.size.y, outline='red')
+                # self.canvas.create_rectangle(entity.pos.x, entity.pos.y, entity.pos.x + entity.size.x , entity.pos.y + entity.size.y, outline='red')
                 
 
             else :
