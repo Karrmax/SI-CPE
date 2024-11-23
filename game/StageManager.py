@@ -1,4 +1,4 @@
-from game.ship import Enemy, Weapon
+from game.ship import Enemy, Weapon, Ship
 from divers.Vector import Vector 
 
 class Stage:
@@ -12,25 +12,35 @@ class Stage:
 
         
     def generateStage(self):
-        # create ennemies evenly separated on the screen with a speed function of numStage    
-        # weaponsprite =
+        self.removeALLExceptShip()
+        eMatrix = [[None for j in range(5)] for i in range(3)]
+        # creates ennemies evenly separated on the screen with a speed function of numStage    
+
         enemyWeapon = Weapon(10, self.weaponSprite)
-        # enemySprite = self.load_manager.get_resource('enemy')
         for i in range(3):
             for j in range(5):
-                e = Enemy(self.board, 1, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, self.enemySprite, self.calculateSpeed())
-                self.board.entities.append(e)
+                e = Enemy(self.board, 1, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, self.enemySprite, self.calculateSpeed(), self.calculateProbability())
+                if i == 2:
+                    e.canShoot = True
+                eMatrix[i][j] = e
+                
+        self.board.ennemiesMatrix = eMatrix
                 # self.ennemies.append(e)
                 
+    def calculateProbability(self):
+        return 0.005 + self.numStage * 0.007
+    
     def calculateSpeed(self):
         return Vector(3 + self.numStage, 0)
     
+    def removeALLExceptShip(self):
+        self.board.ennemiesMatrix = None
+        self.fire = {'ennemie':[], 'mainship':[]}
+        
     
     def manageEnemiesMoves(self):
-        e = self.getAllEnemies()
-        # print(len(e))
+        e = self.board.getEnnemiesList()
         for i in e:
-            print(i.outOfBoard())
             if i.outOfBoard():
                 self.reversALLMovement(e)
                 self.ALLgoDown(e)
@@ -52,7 +62,7 @@ class Stage:
             self.goDown(i)
             
     def isStageFinished(self):
-        return self.getAllEnemies() == []
+        return  self.board.getEnnemiesList() == []
     
 
     def nextStage(self):
@@ -65,12 +75,12 @@ class Stage:
         if self.isStageFinished():
             self.nextStage()
             
-    def getAllEnemies(self):
-        res = []
-        for i in self.board.entities:
-            if isinstance(i, Enemy):
-                res.append(i)
-        return res
+    # def getAllEnemies(self):
+    #     res = []
+    #     for i in self.board.getEntities():
+    #         if isinstance(i, Enemy):
+    #             res.append(i)
+    #     return res
     
     def reset(self):
         """
@@ -78,3 +88,8 @@ class Stage:
         """
         self.numStage = 0
         self.generateStage()
+        
+    # def deletAll(self):
+    #     self.ennemies = []
+    #     self.ennemiesMatrix = []
+    #     self.board.removeALLExceptShip()

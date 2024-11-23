@@ -16,7 +16,7 @@ class GameLogic:
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
         
-        self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy'), self.load_manager.get_resource('fire'))
+        self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy'), self.load_manager.get_resource('fireDown'))
         self.running = False
 
         
@@ -34,8 +34,10 @@ class GameLogic:
         ## ajout du vaisseau main
         
         self.loadShip()
+        self.stage_manager.generateStage()
+        print(self.board.ennemiesMatrix)
         self.game_loop()
-
+        
     def stop(self):
         self.running = False
 
@@ -59,16 +61,16 @@ class GameLogic:
     def changeState(self):
         inputs = self.inputManager.get_inputs()
         self.stage_manager.changeStates()
-        for entity in self.board.entities:
+        for entity in self.board.getEntities():
             entity.changeState(inputs)
             
     def update(self):
         self.board.manageCollisions()
-        for entity in self.board.entities:
+        for entity in self.board.getEntities():
             entity.update()
 
     def render(self):
-        self.renderManager.render(self.board.entities)
+        self.renderManager.render(self.board.getEntities())
         
         
     def loadShip(self):
@@ -80,13 +82,19 @@ class GameLogic:
         mainShip.pos.x = self.board.width/2
         mainShip.pos.y = self.board.height * 4/5
         
-        self.board.entities.append(mainShip)
+        self.board.mainShip = mainShip
         
     def reset(self):
         self.board.reset()
         self.stage_manager.reset()
-        print(self.stage_manager.numStage)
+        # print(self.stage_manager.numStage)
         self.running = False
+        
+    def cheatCode(self, code):
+        if(code == "999"):
+            # self.stage_manager.deletAll() 
+            self.stage_manager.numStage = 10
+            self.stage_manager.nextStage()
         
     def pause(self):
         self.running = False

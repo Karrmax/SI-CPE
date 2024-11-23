@@ -4,6 +4,7 @@ SPACE INVADERS
 """
 from divers.Vector import Vector, NULLVECTOR
 import time
+import random
 
 class Element:
     def __init__(self, board, pos:Vector, size:Vector):
@@ -41,8 +42,6 @@ class Element:
         return ((self.pos.x + self.size.x < 0 or self.pos.x - self.size.x > self.board.width) or
             (self.pos.y + self.size.y < 0 or self.pos.y - self.size.y > self.board.height)) 
     
-    def __del__(self):
-        self.board.remove(self)
         
 
 class Character(Element): # herite de ELEMENT pour gerer les collisions simplement
@@ -67,38 +66,46 @@ class Character(Element): # herite de ELEMENT pour gerer les collisions simpleme
             
     def hit(self, projectile):
         self.HP -= projectile.dmg
+        projectile.destroy()
         
     def shoot(self):
         s = self.weapon.shoot(self)
-        if s:
-            self.board.entities.append(s)
+        # if s:
+        #     self.board.entities.append(s)
             
     def update(self):
         self.move()
         
 class Enemy(Character):
-    def __init__(self, board, hp, position, size, weapon, sprite = False, speed = NULLVECTOR) -> None:
+    def __init__(self, board, hp, position, size, weapon, sprite = False, speed = NULLVECTOR, shootProbability = 0, points = 10) -> None:
         super().__init__(board,hp, position, size, weapon, sprite, speed)
+        self.points = points
+        self.canShoot = False
+        self.shootProbability = shootProbability
         
+        
+    # function that return true or false randomly by a probability self.probability    
+    def applyProba(self):
+        return random.random() < self.shootProbability
+    
+    
     def changeState(self, input):
-        # print(self.speed)
         pass
     
     def update(self):
-        # print(self.HP)
         if self.HP <= 0:
-            self.__del__()
+            self.destroy()
         else:     
             self.move()
+            if self.canShoot and self.applyProba():
+                self.shoot()
             
     def move(self):
-        # print(self.pos)
         self.pos.x += self.speed.x
         self.pos.y += self.speed.y 
         
-    def __del__(self):
-        # self.board.remove(self)
-        return super().__del__()
+    def destroy(self):
+        self.board.remove(self)
         
         
 class Ship(Character): 
@@ -109,8 +116,6 @@ class Ship(Character):
     def changeState(self, input):
         self.speed.x = 0
         self.speed.y = 0
-        
-        # print(input)
         
         if 'd' in input:
             self.speed.x += self.MAXspeed[0]
@@ -130,7 +135,7 @@ class Ship(Character):
         
 
 class Weapon:
-    def __init__(self, dmg, sprite) -> None:
+    def __init__(self, dmg, sprite, CD = 0.6) -> None:
         # self.board = board
         self.projectiles = []
         self.dmg = dmg
@@ -138,32 +143,46 @@ class Weapon:
         
         self.projSize = Vector(10, 52)
         self.speed = 8
-        self.coolDown = CoolDown(.3)
+        self.coolDown = CoolDown(CD)
 
     def shoot(self, ship):
         if self.coolDown.isEnable():
             origin = (ship.pos + ship.size)
             origin.x -= ship.size.x/2 + self.projSize.x / 2
-            origin.y -= ship.size.y + self.projSize.y +1
-            proj = Projectile(ship.board, origin, self.projSize, self.speed, self.dmg, self.sprite)
+            
+            if isinstance(ship, Ship):
+                origin.y -= ship.size.y + self.projSize.y +1
+            else:
+                origin.y -= ship.size.y - self.projSize.y - 1
+                # self.speed = -self.speed
+            
+            proj = Projectile(ship.board, origin, self.projSize, self.speed, self.dmg, self.sprite, isinstance(ship, Ship))
             self.projectiles.append(proj)
             self.coolDown.set()
-            return proj
+            # return proj
         return False
         
 
 class Projectile(Element):
-    def __init__(self, board, position, size, speed, dmg, sprite = False) -> None:
+    def __init__(self, board, position, size, speed, dmg, sprite = False, fromMainShip = False) -> None:
         super().__init__(board, position, size)
         self.speed = speed
         
         self.dmg = dmg
         self.sprite = sprite
+        self.fromMainShip = fromMainShip
         
-        
+        if self.fromMainShip:
+            self.board.fire['ennemy'].append(self)
+        else:
+            self.board.fire['mainShip'].append(self)
+            
         
     def move(self):
-        self.pos.y -= self.speed
+        if self.fromMainShip:
+            self.pos.y -= self.speed 
+        else:
+              self.pos.y += self.speed
         
     def update(self):
         if self.board.colided(self):
@@ -172,10 +191,10 @@ class Projectile(Element):
     
         self.move()
         if self.outOfBoardLarge():
-            self.__del__()
+            self.destroy()
     
-    def __del__(self):
-        super().__del__()
+    def destroy(self):
+        self.board.remove(self)
         
         
 class CoolDown():

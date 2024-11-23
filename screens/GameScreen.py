@@ -28,7 +28,7 @@ class GameScreen(tk.Frame):
         # tk.Button(self, text="Back to Lobby", command=self.goLobby).pack()
         
         # Création du canvas avec la largeur et la hauteur de l'écran, fond noir
-        self.canvas = tk.Canvas(self, width=root.winfo_screenwidth(), height=root.winfo_screenheight(), bg="black")
+        self.canvas = tk.Canvas(self, width=root.winfo_screenwidth(), height=root.winfo_screenheight() -28, bg="black")
         self.canvas.pack()
         
         # Initialisation de la logique du jeu avec une cible de 60 FPS
@@ -79,6 +79,16 @@ class GameScreen(tk.Frame):
         quit_button = tk.Button(self.canvas, text="Quit to Lobby", command=self.goLobby, bg="black", fg="white", font=("Arial", 24), padx=20, pady=10)
         quit_button_window = self.canvas.create_window(self.canvas.winfo_width() // 2, self.canvas.winfo_height() // 2 + 100, window=quit_button)
         self.pause_menu_buttons.append(quit_button_window)
+        
+        # Créer le champ de saisie pour le code de triche
+        self.cheat_code_entry = tk.Entry(self.canvas, font=("Arial", 24))
+        cheat_code_entry_window = self.canvas.create_window(self.canvas.winfo_width() // 2, self.canvas.winfo_height() // 2 + 200, window=self.cheat_code_entry)
+        self.pause_menu_buttons.append(cheat_code_entry_window)
+
+        # Créer le bouton "Submit" pour le code de triche
+        submit_button = tk.Button(self.canvas, text="Submit", command=self.submit_cheat_code, bg="black", fg="white", font=("Arial", 24), padx=20, pady=10)
+        submit_button_window = self.canvas.create_window(self.canvas.winfo_width() // 2, self.canvas.winfo_height() // 2 + 300, window=submit_button)
+        self.pause_menu_buttons.append(submit_button_window)
 
     def resume_game(self):
         self.paused = False
@@ -92,3 +102,11 @@ class GameScreen(tk.Frame):
         # Supprimer le rectangle gris et le texte "Paused"
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.load_manager.get_resource('background'), anchor="nw")
+    
+    def submit_cheat_code(self):
+        cheat_code = self.cheat_code_entry.get()
+        self.gameLogic.cheatCode(cheat_code)
+        self.resume_game()
+        # self.cheat_code_entry.delete(0, tk.END)
+        
+    
