@@ -95,7 +95,7 @@ class Enemy(Character):
             self.move()
             
     def move(self):
-        print(self.pos)
+        # print(self.pos)
         self.pos.x += self.speed.x
         self.pos.y += self.speed.y 
         

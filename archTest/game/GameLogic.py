@@ -3,6 +3,7 @@ from managers.RenderManager import RenderManager
 from game.ship import Ship, Weapon, Enemy
 from divers.Vector import Vector
 from game.Board import Board
+from game.StageManager import Stage
 import time
 
 class GameLogic:
@@ -14,7 +15,12 @@ class GameLogic:
         self.renderManager = RenderManager(self.canvas)
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
-
+        
+        
+        
+        
+        
+        self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy'), self.load_manager.get_resource('fire'))
         self.running = False
 
         
@@ -32,20 +38,7 @@ class GameLogic:
         ## ajout du vaisseau main
         
         self.loadShip()
-        
-
-        self.board.loadStage()
-        
-        # ## ajout d'un enemy 
-        # weaponsprite = self.load_manager.get_resource('fire')
-        # enemyWeapon = Weapon(10, weaponsprite)
-        # enemySprite = self.load_manager.get_resource('enemy')
-        
-        # enemy = Enemy(self.board, 20, Vector(100, 100), Vector(40, 40), enemyWeapon, enemySprite)
-        
-        # self.board.entities.append(enemy)
-        
-        
+        # self.stage_manager.loadStage()
         self.game_loop()
 
     def stop(self):
@@ -72,16 +65,18 @@ class GameLogic:
         
         inputs = self.inputManager.get_inputs()
         # changeState game state based on inputs
-        self.board.manageEnemiesMoves()
-        if self.board.isStageFinished():
-            self.board.nextStage()
+        # self.board.manageEnemiesMoves()
+        self.stage_manager.changeStates()
+        
+        # if self.board.isStageFinished():
+        #     self.board.nextStage()
         for entity in self.board.entities:
             entity.changeState(inputs)
             
     def update(self):
         
         self.board.manageCollisions()
-        print(self.board.col)
+        # print(self.board.col)
         # Update game state based on state
         for entity in self.board.entities:
             entity.update()

@@ -10,7 +10,7 @@ class GameScreen(tk.Frame):
         tk.Button(self, text="Back to Lobby", command=lambda: self.switch_callback("lobby")).pack()
         
         
-        self.canvas = tk.Canvas(self, width=800, height=500, bg="black")
+        self.canvas = tk.Canvas(self, width=root.winfo_screenwidth(), height=root.winfo_screenheight(), bg="black")
         self.canvas.pack()
         
         self.gameLogic = GameLogic(self, load_manager, target_fps = 60)

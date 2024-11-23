@@ -22,6 +22,9 @@ class Vector:
         
     def __rmul__(self, other):
         return self * other
+    
+    def __neg__(self):
+        return -1 * self
         
     # def __copy__(self):
     #     cls = self.__class__

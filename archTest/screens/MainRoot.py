@@ -8,14 +8,16 @@ class MainRoot:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Tkinter Game")
-        self.root.geometry("800x600")
+        # self.root.attributes("-toolwindow", True)
+        self.root.state('zoomed')
+        self.root.bind("<Configure>", resize)
 
+    
         self.loadManager = LoadManager()
         self.loadManager.load_resources()
 
         self.screens = {}
         self.currentScreen = None
-
         self.init_screens()
 
     def init_screens(self):
@@ -33,3 +35,18 @@ class MainRoot:
 
     def start(self):
         self.root.mainloop()
+
+def resize(event):
+    print("New size is: {}x{}".format(event.width, event.height))
+        
+        
+        
+    # def toggle_fullscreen(self, event=None):
+    #     self.state = not self.state  # Just toggling the boolean
+    #     self.root.attributes("-fullscreen", self.state)
+    #     return "break"
+
+    # def end_fullscreen(self, event=None):
+    #     self.state = False
+    #     self.root.attributes("-fullscreen", False)
+    #     return "break"
