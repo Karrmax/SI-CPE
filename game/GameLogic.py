@@ -7,9 +7,10 @@ from game.StageManager import Stage
 import time
 
 class GameLogic:
-    def __init__(self, screen, load_manager, target_fps = 60):
+    def __init__(self, screen, load_manager,callback_endSequence, target_fps = 60):
         self.canvas = screen.canvas
         
+        self.callback_endSequence = callback_endSequence
         self.load_manager = load_manager
         self.inputManager = InputManager()
         self.renderManager = RenderManager(self.canvas, self.load_manager.get_resource('background'))
@@ -19,6 +20,7 @@ class GameLogic:
         self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy'), self.load_manager.get_resource('fireDown'))
         self.running = False
 
+        self.points = 0
         
         self.target_fps = target_fps
         self.frame_time = 1 / self.target_fps
@@ -35,7 +37,7 @@ class GameLogic:
         
         self.loadShip()
         self.stage_manager.generateStage()
-        print(self.board.ennemiesMatrix)
+        # print(self.board.ennemiesMatrix)
         self.game_loop()
         
     def stop(self):
@@ -43,12 +45,16 @@ class GameLogic:
 
     def game_loop(self):
         start_time = time.time()
-        
+
         if self.running:
             self.changeState()
             self.update()
             self.render()
-
+            
+            # print(self.board.isGameFinished())
+            
+            if not self.board.noEnemies()  and self.board.isGameFinished():
+                self.endSequence()
 
         # Calculate time taken for this frame
         elapsed_time = time.time() - start_time
@@ -71,14 +77,15 @@ class GameLogic:
 
     def render(self):
         self.renderManager.render(self.board.getEntities())
+        self.renderManager.renderInfos(self.board.points, self.stage_manager.numStage, self.board.mainShip.HP)
         
         
     def loadShip(self):
         weaponsprite = self.load_manager.get_resource('fire')
-        mainWeapon = Weapon(10, weaponsprite)
+        mainWeapon = Weapon(1, weaponsprite)
         myMainSprite = self.load_manager.get_resource('ship')
         
-        mainShip = Ship(self.board, 100, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
+        mainShip = Ship(self.board, 3, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
         mainShip.pos.x = self.board.width/2
         mainShip.pos.y = self.board.height * 4/5
         
@@ -102,7 +109,19 @@ class GameLogic:
     def unPause(self):
         self.running = True
         
-        def __del__(self):
-            self.stop()
-            del self.board
-            del self.render_manager
+    def __del__(self):
+        self.stop()
+        del self.board
+        del self.render_manager
+            
+    def endSequence(self):
+        # print("test")
+        # self.pause()
+        self.callback_endSequence(self.board.points)
+        
+    def get_points(self):
+        # print(self.board.points)
+        return self.board.points
+    
+    def get_stage(self):
+        return self.stage_manager.numStage

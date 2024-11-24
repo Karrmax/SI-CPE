@@ -9,8 +9,15 @@ class LeaderboardScreen(tk.Frame):
 
 
         root.bind("<KeyRelease-Escape>", self.return_to_lobby)
-
-        data = ScoreManager.get_score()
+        # root.bind('<Visibility>', lambda event: self.reload())
+        self.reload()
+        
+    def return_to_lobby(self):
+        self.switch_callback("lobby")
+        
+    def reload(self):
+        SM = ScoreManager()
+        data = SM.get_score()
         sorted_list = sorted(data, key=lambda d:(list(d.values())[1], list(d.values())[2]))[::-1]
         keyless_list = [list(d.values()) for d in sorted_list]
         print_list = keyless_list[0:100]       #Max 100 profiles
@@ -42,6 +49,5 @@ class LeaderboardScreen(tk.Frame):
 
         # Bouton pour retourner au lobby
         tk.Button(self, text="Back to Lobby", command=lambda: self.switch_callback("lobby")).grid(row=len(print_list)+2, column=0, columnspan=3, pady=20)
-
-    def return_to_lobby(self):
-        self.switch_callback("lobby")
+        
+        

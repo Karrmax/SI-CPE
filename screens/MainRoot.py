@@ -35,7 +35,9 @@ class MainRoot:
         self.currentScreen.pack(fill=tk.BOTH, expand=True)
         if isinstance(self.currentScreen, GameScreen):
             self.currentScreen.start_game_loop()
-
+            
+        if isinstance(self.currentScreen, LeaderboardScreen):
+            self.currentScreen.reload()
     def start(self):
         self.root.mainloop()
 

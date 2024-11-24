@@ -67,6 +67,7 @@ class Character(Element): # herite de ELEMENT pour gerer les collisions simpleme
     def hit(self, projectile):
         self.HP -= projectile.dmg
         projectile.destroy()
+        # print(self.HP)
         
     def shoot(self):
         s = self.weapon.shoot(self)
@@ -88,6 +89,12 @@ class Enemy(Character):
     def applyProba(self):
         return random.random() < self.shootProbability
     
+    def hit(self, projectile):
+        if projectile.fromMainShip:
+            self.HP -= projectile.dmg  
+            # print('from main ship')
+            self.board.points += self.points
+            projectile.destroy()
     
     def changeState(self, input):
         pass
@@ -130,6 +137,9 @@ class Ship(Character):
             
         if 'space' in input:
             self.shoot()
+            
+    def isAlive(self):
+        return self.HP > 0
         
         
         

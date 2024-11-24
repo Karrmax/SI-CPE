@@ -11,6 +11,7 @@ class Board:
         
         self.col = []
         self.load_manager = loadManager
+        self.points = 0
         
         # self.setAllShooterEnnemies()
     def getEntities(self):
@@ -96,8 +97,34 @@ class Board:
         for i in self.getAllLastsEnnemiesByColumn():
             i.canShoot = True
             
+    def isGameFinished(self):
+        # p = self.getDownestPointAliens()
+        return self.aliensTooDown() or not self.mainShip.isAlive()
+        
+        
+    def aliensTooDown(self):
+        return self.getDownestPointAliens().y > self.height
+    
+    def getDownestAliens(self):
+        matCol = self.matRowToMatColumn(self.ennemiesMatrix)
+        lengthMax = max([len(matCol[i]) for i in range(len(matCol))])
+        
+        for i in matCol:
+            if len(i) == lengthMax:
+                return i[-1]
             
-            
+    def getDownestPointAliens(self):
+        alien = self.getDownestAliens()
+        return alien.pos + alien.size
+    
+    def noEnemies(self):
+        for i in self.ennemiesMatrix:
+            for j in i:
+                if isinstance(j, Enemy):
+                    return False
+                
+        return True   
+        
     # def __del__(self):
     #     del self.width
     #     del self.height

@@ -16,7 +16,7 @@ class Stage:
         eMatrix = [[None for j in range(5)] for i in range(3)]
         # creates ennemies evenly separated on the screen with a speed function of numStage    
 
-        enemyWeapon = Weapon(10, self.weaponSprite)
+        enemyWeapon = Weapon(1, self.weaponSprite)
         for i in range(3):
             for j in range(5):
                 e = Enemy(self.board, 1, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, self.enemySprite, self.calculateSpeed(), self.calculateProbability())

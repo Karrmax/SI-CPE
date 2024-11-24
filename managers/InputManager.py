@@ -10,4 +10,5 @@ class InputManager:
             del self.keys[event.keysym]
 
     def get_inputs(self):
+        print(self.keys)
         return self.keys

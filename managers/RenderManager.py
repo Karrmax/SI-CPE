@@ -16,11 +16,13 @@ class RenderManager:
                 
                 #################   SHOW HIT BOX   ##############
                 # self.canvas.create_rectangle(entity.pos.x, entity.pos.y, entity.pos.x + entity.size.x , entity.pos.y + entity.size.y, outline='red')
-                
-
             else :
                 print("has not sprite")
                 self.canvas.create_rectangle(entity.pos.x, entity.pos.y, entity.pos.x + 20, entity.pos.y + 20, fill="white")
-
+        
+    def renderInfos(self, points, stage, HP):
+        info_text = f"HP: {HP} \nPoints: {points} \nStage: {stage}"
+        self.canvas.create_text(self.canvas.winfo_width() - 10, 10, text=info_text, anchor="ne", font=("Arial", 16), fill="white")
+        
     def __del__(self):
         del self.canvas
