@@ -67,12 +67,9 @@ class Character(Element): # herite de ELEMENT pour gerer les collisions simpleme
     def hit(self, projectile):
         self.HP -= projectile.dmg
         projectile.destroy()
-        # print(self.HP)
         
     def shoot(self):
         s = self.weapon.shoot(self)
-        # if s:
-        #     self.board.entities.append(s)
             
     def update(self):
         self.move()
@@ -124,14 +121,16 @@ class Ship(Character):
         self.speed.x = 0
         self.speed.y = 0
         
-        if 'd' in input:
+        if ('d' in input) or ('D' in input) or ('Right' in input):
             self.speed.x += self.MAXspeed[0]
-        if 'q' in input:
+            
+        if ('q' in input) or ('Q' in input) or ('Left' in input):
             self.speed.x -= self.MAXspeed[0]
             
-        if 'z' in input:
+        if ('z' in input) or ('Z' in input) or ('Up' in input):
             self.speed.y -= self.MAXspeed[1]
-        if 's' in input:
+            
+        if ('s' in input) or ('S' in input) or ('Down' in input):
             self.speed.y += self.MAXspeed[1]
             
             
