@@ -6,9 +6,13 @@ class RenderManager:
         self.canvas = canvas
         self.background_image = background_image
 
-    def render(self, entities):
+    def render(self, entities, board):
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.background_image, anchor="nw")
+        
+        # délimitation de la zone de jeu
+        self.canvas.create_line(0,board.allayZone,board.width,board.allayZone, fill="white", width=1)
+        
         for entity in entities:
             if entity.hasSprite():
  

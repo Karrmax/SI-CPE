@@ -6,6 +6,9 @@ from game.Board import Board
 from game.StageManager import Stage
 import time
 
+## TODO : 
+## BUG la partie continue apres la fin du jeu
+
 class GameLogic:
     def __init__(self, screen, load_manager,callback_endSequence, target_fps = 60):
         self.canvas = screen.canvas
@@ -49,15 +52,22 @@ class GameLogic:
     def game_loop(self):
         start_time = time.time()
 
+
+            # return
         if self.running:
+
             self.changeState()
             self.update()
             self.render()
             
+            if not self.board.noEnemies() and self.board.isGameFinished():
+                self.endSequence()
+            
+            
+            
             # print(self.board.isGameFinished())
             
-            if not self.board.noEnemies()  and self.board.isGameFinished():
-                self.endSequence()
+
 
         # Calculate time taken for this frame
         elapsed_time = time.time() - start_time
@@ -79,7 +89,7 @@ class GameLogic:
             entity.update()
 
     def render(self):
-        self.renderManager.render(self.board.getEntities())
+        self.renderManager.render(self.board.getEntities(), self.board)
         self.renderManager.renderInfos(self.board.points, self.stage_manager.numStage, self.board.mainShip.HP)
         
         
@@ -90,7 +100,7 @@ class GameLogic:
         
         mainShip = Ship(self.board, 3, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
         mainShip.pos.x = self.board.width/2
-        mainShip.pos.y = self.board.height * 4/5
+        mainShip.pos.y = self.board.height * 7/8
         
         self.board.mainShip = mainShip
         
@@ -108,6 +118,10 @@ class GameLogic:
             self.stage_manager.nextStage()
         if(code == "222"):
             self.board.mainShip.HP += 1
+            
+        if(code == "700"):
+            self.stage_manager.numStage = 26
+            self.stage_manager.nextStage()
         
     def pause(self):
         self.running = False

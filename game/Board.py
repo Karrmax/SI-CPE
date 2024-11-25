@@ -13,7 +13,14 @@ class Board:
         self.load_manager = loadManager
         self.points = 0
         
+        self.allayZone = height - 175
+        # self.wallZone = height - 25
+        
         # self.setAllShooterEnnemies()
+        
+    def isInAllayZone(self, element):
+        return element.pos.y > self.allayZone
+    
     def getEntities(self):
         return self.getEnnemiesList() + self.fire['ennemy'] + self.fire['mainShip'] + [self.mainShip]
     

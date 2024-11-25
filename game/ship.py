@@ -137,6 +137,12 @@ class Ship(Character):
         if 'space' in input:
             self.shoot()
             
+    def move(self):
+        if not ((self.pos.x + self.speed.x + self.size.x>= self.board.width - 15) or (self.pos.x + self.speed.x <= 15)) :    
+            self.pos.x += self.speed.x
+        if not ((self.pos.y + self.speed.y + self.size.y >= self.board.height - 15) or (self.pos.y + self.speed.y <= self.board.allayZone)) :       
+            self.pos.y += self.speed.y  
+            
     def isAlive(self):
         return self.HP > 0
         
