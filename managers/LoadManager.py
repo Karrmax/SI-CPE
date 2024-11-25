@@ -5,7 +5,7 @@ class LoadManager:
         self.resources = {}
 
     def load_resources(self):
-        # Simulate loading images, sounds, etc.
+        # loading images, sounds, etc...
         print("Loading resources...")
         self.resources["ship"] = ImageTk.PhotoImage(Image.open("ressources/images/pngegg.png").resize((60, 60)))
         self.resources["fire"] = ImageTk.PhotoImage(Image.open("ressources/images/fire.png").resize((10, 58)))

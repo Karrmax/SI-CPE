@@ -106,7 +106,11 @@ class GameScreen(tk.Frame):
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.load_manager.get_resource('background'), anchor="nw")
     
+        self.gameLogic.bindAll(self)
+        self.focus_set()
+        
     def submit_cheat_code(self):
+        # print("qejdqudzquydvzquygdzquy")
         cheat_code = self.cheat_code_entry.get()
         self.gameLogic.cheatCode(cheat_code)
         self.resume_game()
@@ -145,7 +149,6 @@ class GameScreen(tk.Frame):
         points = self.gameLogic.get_points()
         stage = self.gameLogic.get_stage()
         self.scoreManager.addScore(username, points, stage)
-        # Implémentez ici la logique pour sauvegarder le score avec le nom d'utilisateur
         print(f"Saving score: {points} for user: {username}")
         self.goLobby()
 

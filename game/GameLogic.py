@@ -26,10 +26,13 @@ class GameLogic:
         self.frame_time = 1 / self.target_fps
 
         # Bind input events
+        self.bindAll(screen)
+        screen.focus_set()
+        
+    def bindAll(self, screen):
         screen.bind("<KeyPress>", self.inputManager.key_pressed)
         screen.bind("<KeyRelease>", self.inputManager.key_released)
-        screen.focus_set()
-
+    
     def start(self):
         self.running = True
         
@@ -98,10 +101,13 @@ class GameLogic:
         self.running = False
         
     def cheatCode(self, code):
+        print(code)
         if(code == "999"):
             # self.stage_manager.deletAll() 
             self.stage_manager.numStage = 10
             self.stage_manager.nextStage()
+        if(code == "222"):
+            self.board.mainShip.HP += 1
         
     def pause(self):
         self.running = False

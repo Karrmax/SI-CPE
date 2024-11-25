@@ -20,7 +20,7 @@ class LeaderboardScreen(tk.Frame):
         data = SM.get_score()
         sorted_list = sorted(data, key=lambda d:(list(d.values())[1], list(d.values())[2]))[::-1]
         keyless_list = [list(d.values()) for d in sorted_list]
-        print_list = keyless_list[0:100]       #Max 100 profiles
+        print_list = keyless_list[0:10]       #Max 100 profiles
  
  
         # root.bind("<Escape>", lambda : self.switch_callback("lobby"))
@@ -33,7 +33,7 @@ class LeaderboardScreen(tk.Frame):
         self.grid_rowconfigure(len(print_list) + 3, weight=1)
         
         # Titre du tableau
-        tk.Label(self, text="Leaderboard top 100 players", font=("Arial", 24)).grid(row=0, column=0, columnspan=3, pady=20)
+        tk.Label(self, text="Leaderboard top 10 players", font=("Arial", 24)).grid(row=0, column=0, columnspan=3, pady=20)
 
         # En-têtes du tableau
         tk.Label(self, text="Username", font=("Arial", 12)).grid(row=1, column=0, padx=5, pady=5)
