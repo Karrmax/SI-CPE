@@ -1,6 +1,7 @@
 from managers.InputManager import InputManager
 from managers.RenderManager import RenderManager
 from game.ship import Ship, Weapon, Enemy
+from game.wall import Wall
 from divers.Vector import Vector
 from game.Board import Board
 from game.StageManager import Stage
@@ -42,6 +43,7 @@ class GameLogic:
         ## ajout du vaisseau main
         
         self.loadShip()
+        self.loadWals()
         self.stage_manager.generateStage()
         # print(self.board.ennemiesMatrix)
         self.game_loop()
@@ -92,7 +94,11 @@ class GameLogic:
         self.renderManager.render(self.board.getEntities(), self.board)
         self.renderManager.renderInfos(self.board.points, self.stage_manager.numStage, self.board.mainShip.HP)
         
-        
+    def loadWals(self):
+        wallSprite = self.load_manager.get_resource('wall')
+        for i in range(3):
+            self.board.walls.append(Wall(self.board, Vector(i*600 + 100, self.board.height * 4/5), Vector(150, 42), wallSprite))  
+    
     def loadShip(self):
         weaponsprite = self.load_manager.get_resource('fire')
         mainWeapon = Weapon(1, weaponsprite)
