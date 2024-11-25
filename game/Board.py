@@ -8,6 +8,7 @@ class Board:
         self.ennemiesMatrix = None
         self.mainShip = None
         self.fire = {'ennemy':[], 'mainShip':[]}
+        self.walls = []
         
         self.col = []
         self.load_manager = loadManager
@@ -17,12 +18,12 @@ class Board:
         # self.wallZone = height - 25
         
         # self.setAllShooterEnnemies()
-        
+    
     def isInAllayZone(self, element):
         return element.pos.y > self.allayZone
     
     def getEntities(self):
-        return self.getEnnemiesList() + self.fire['ennemy'] + self.fire['mainShip'] + [self.mainShip]
+        return self.getEnnemiesList() + self.fire['ennemy'] + self.fire['mainShip'] + [self.mainShip] + self.walls
     
     def getEnnemiesList(self):
         return [j for sub in self.ennemiesMatrix for j in sub]
