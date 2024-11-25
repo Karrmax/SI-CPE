@@ -112,6 +112,39 @@ class Enemy(Character):
         self.board.remove(self)
         
         
+class EnemyClassic(Enemy):
+    def __init__(self, board, position, size, weapon, speed = NULLVECTOR, shootProbability = 0, points = 10, ) -> None:
+        sprite = board.load_manager.enemyRessources['enemy1']
+        super().__init__(board, 1, position, size, weapon, sprite, speed, shootProbability, points)
+        
+class EnemyShooter(Enemy):
+    def __init__(self, board, position, size, weapon, speed = NULLVECTOR, shootProbability = 0, points = 30) -> None:
+        sprite = board.load_manager.enemyRessources['enemy2'] 
+        super().__init__(board,1, position, size, weapon, sprite, speed, shootProbability, points)
+        
+class EnemyBoss(Enemy):
+    def __init__(self, board, position, size, weapon, speed = NULLVECTOR, shootProbability = 0, points = 60) -> None:
+        
+        sprites = [ board.load_manager.enemyRessources['enemy3full'], board.load_manager.enemyRessources['enemy3mid'], board.load_manager.enemyRessources['enemy3low']]
+        super().__init__(board,3, position, size, weapon, sprites[0], speed, shootProbability, points)
+        self.sprites = sprites
+        self.curSprite = 0
+        
+    def hit(self, projectile):
+        if projectile.fromMainShip:
+            self.HP -= projectile.dmg
+            self.nextSprite()
+            if self.HP <= 0:
+                self.board.points += self.points
+            projectile.destroy() 
+    
+    def nextSprite(self):
+        self.curSprite += 1
+        if self.curSprite >= len(self.sprites):
+            self.destroy()
+        else:
+            self.sprite = self.sprites[self.curSprite]
+        
 class Ship(Character): 
     def __init__(self, board, hp, position, size, weapon, sprite = False, speed = NULLVECTOR) -> None:
         super().__init__(board,hp, position, size, weapon, sprite, speed)

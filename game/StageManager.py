@@ -1,37 +1,117 @@
-from game.ship import Enemy, Weapon, Ship
+from game.ship import EnemyClassic, Weapon, EnemyShooter, EnemyBoss
 from divers.Vector import Vector 
+from game.wall import Wall
 
 class Stage:
-    def __init__(self, board, enemySprite, weaponSprite):
+    def __init__(self, board, enemySprites):
         self.board = board
         # self.ennemies = []
         self.numStage = 0
         
-        self.enemySprite = enemySprite
-        self.weaponSprite = weaponSprite
+        self.enemySprites = enemySprites
+        # self.weaponSprite = weaponSprite
 
         
     def generateStage(self):
         self.removeALLExceptShip()
         eMatrix = [[None for j in range(5)] for i in range(3)]
         # creates ennemies evenly separated on the screen with a speed function of numStage    
-
-        enemyWeapon = Weapon(1, self.weaponSprite)
+        if self.numStage == 0:
+            eMatrix = self.generateStage0(eMatrix)
+        elif self.numStage == 1:
+            eMatrix = self.generateStage1(eMatrix)
+        elif self.numStage == 2:
+            eMatrix = self.generateStage2(eMatrix)
+        elif self.numStage == 3:
+            eMatrix = self.generateStage3(eMatrix)
+        else:
+            eMatrix = self.generateClassicStage(eMatrix)
+        if self.numStage != 0:
+            self.board.walls.append(Wall(self.board, Vector(600 + 100, self.board.height * 4/5), Vector(150, 42), self.board.load_manager.resources['wall'])) 
+        self.board.ennemiesMatrix = eMatrix
+                
+    def generateStage0(self, matrix):
+        # matrix = matrix
+        enemyWeapon = Weapon(1, self.enemySprites['fireDown'])
         for i in range(3):
             for j in range(5):
-                e = Enemy(self.board, 1, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, self.enemySprite, self.calculateSpeed(), self.calculateProbability())
+                e = EnemyClassic(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0))
                 if i == 2:
                     e.canShoot = True
-                eMatrix[i][j] = e
-                
-        self.board.ennemiesMatrix = eMatrix
-                # self.ennemies.append(e)
+                matrix[i][j] = e
+        return matrix
+        
+    def generateStage1(self, matrix):
+        # matrix = matrix
+        enemyWeapon = Weapon(1, self.enemySprites['fireDown'])
+        for i in range(3):
+            for j in range(5):
+                if i == 1:
+                    e = EnemyShooter(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0), self.calculateProbability())
+                    e.canShoot = True
+                else:
+                    e = EnemyClassic(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0))
+                matrix[i][j] = e
+        return matrix
+    
+    def generateStage2(self, matrix):
+        # matrix = matrix
+        enemyWeapon = Weapon(1, self.enemySprites['fireDown'])
+        bossWeapon = Weapon(2, self.enemySprites['fireDown'])
+        for i in range(3):
+            for j in range(5):
+                if i == 0 and j == 2:
+                    print('boss')
+                    e = EnemyBoss(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), bossWeapon, Vector(3, 0), self.calculateProbability())
+                    e.canShoot = True
+                elif i == 1:
+                    e = EnemyShooter(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0), self.calculateProbability())
+                    e.canShoot = True
+                else:
+                    e = EnemyClassic(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0))
+                matrix[i][j] = e
+        return matrix
+    
+    def generateStage3(self, matrix):
+        # matrix = matrix
+        enemyWeapon = Weapon(1, self.enemySprites['fireDown'])
+        bossWeapon = Weapon(2, self.enemySprites['fireDown'])
+        for i in range(3):
+            for j in range(5):
+                if i == 0 and j == 2 or i == 0 and j == 3 or i == 0 and j == 1:
+                    print('boss')
+                    e = EnemyBoss(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), bossWeapon, Vector(3, 0), self.calculateProbability())
+                    e.canShoot = True
+                elif i == 1:
+                    e = EnemyShooter(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0), self.calculateProbability())
+                    e.canShoot = True
+                else:
+                    e = EnemyClassic(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, Vector(3, 0))
+                matrix[i][j] = e
+        return matrix
+    
+    def generateClassicStage(self, matrix):
+        enemyWeapon = Weapon(1, self.enemySprites['fireDown'])
+        bossWeapon = Weapon(2, self.enemySprites['fireDown'])
+        for i in range(3):
+            for j in range(5):
+                if i == 0 :
+                    # print('boss')
+                    e = EnemyBoss(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), bossWeapon, self.calculateSpeed(), self.calculateProbability())
+                    e.canShoot = True
+                elif i == 1:
+                    e = EnemyShooter(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, self.calculateSpeed(), self.calculateProbability())
+                    e.canShoot = True
+                else:
+                    e = EnemyClassic(self.board, Vector(j * 100 + 50, i * 100 + 50), Vector(40, 40), enemyWeapon, self.calculateSpeed())
+                matrix[i][j] = e
+        return matrix
                 
     def calculateProbability(self):
         return 0.005 + self.numStage * 0.007
     
     def calculateSpeed(self):
-        return Vector(3 + self.numStage, 0)
+        return Vector(self.numStage, 0)
     
     def removeALLExceptShip(self):
         self.board.ennemiesMatrix = None

@@ -21,7 +21,7 @@ class GameLogic:
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
         
-        self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy1'), self.load_manager.get_resource('fireDown'))
+        self.stage_manager = Stage(self.board,self.load_manager.enemyRessources)
         self.running = False
 
         self.points = 0
@@ -104,7 +104,7 @@ class GameLogic:
         mainWeapon = Weapon(1, weaponsprite)
         myMainSprite = self.load_manager.get_resource('ship')
         
-        mainShip = Ship(self.board, 3, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
+        mainShip = Ship(self.board, 5, Vector(100, 100), Vector(60, 60), mainWeapon, myMainSprite)
         mainShip.pos.x = self.board.width/2
         mainShip.pos.y = self.board.height * 7/8
         
@@ -118,15 +118,17 @@ class GameLogic:
         
     def cheatCode(self, code):
         print(code)
-        if(code == "999"):
-            # self.stage_manager.deletAll() 
-            self.stage_manager.numStage = 10
+        if(code == "dead"):
             self.stage_manager.nextStage()
-        if(code == "222"):
+        if(code == "help"):
             self.board.mainShip.HP += 1
             
-        if(code == "700"):
+        if(code == "ez"):
             self.stage_manager.numStage = 26
+            self.stage_manager.nextStage()
+            
+        if(code == "300"):
+            self.stage_manager.numStage = 4
             self.stage_manager.nextStage()
         
     def pause(self):

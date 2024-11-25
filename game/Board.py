@@ -111,7 +111,7 @@ class Board:
         
         
     def aliensTooDown(self):
-        return self.getDownestPointAliens().y > self.height
+        return self.getDownestPointAliens().y > self.allayZone
     
     def getDownestAliens(self):
         matCol = self.matRowToMatColumn(self.ennemiesMatrix)

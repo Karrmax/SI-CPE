@@ -26,7 +26,7 @@ class RenderManager:
         
     def renderInfos(self, points, stage, HP):
         info_text = f"HP: {HP} \nPoints: {points} \nStage: {stage}"
-        self.canvas.create_text(self.canvas.winfo_width() - 10, 10, text=info_text, anchor="ne", font=("Arial", 16), fill="white")
+        self.canvas.create_text(10, 10, text=info_text, anchor="nw", font=("Arial", 16), fill="white")
         
     def __del__(self):
         del self.canvas
