@@ -21,7 +21,7 @@ class GameLogic:
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
         
-        self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy'), self.load_manager.get_resource('fireDown'))
+        self.stage_manager = Stage(self.board,self.load_manager.get_resource('enemy1'), self.load_manager.get_resource('fireDown'))
         self.running = False
 
         self.points = 0
