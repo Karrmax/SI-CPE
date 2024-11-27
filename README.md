@@ -64,6 +64,8 @@ ________________________________________________________________________________
 ////////////////////////////////////////////////////////////////////////////////////////////////
 CHEAT CODES:
 
+Il existe plusieurs cheat codes qui ont été laissé dans cette version du jeux, qui provenait de debugging et qui sont laissé pour aider le joueur si il en a besoin. Les codes sont bien sûr caché et jamais révélé au joueur.
+
 dead == tue tout enemi et skip le stage (niveau actuel)
 help == gagner un HP
 ez == avance au niveau 27 
@@ -95,8 +97,18 @@ ________
 Managers
 ^^^^^^^^
 
-On utilise
+On utilise plusieurs managers pour gérer individuellement des aspects repetitifs à chaque frame.
 
+- Input Manager:
+    - Ce manager va vérifier a chaque frame si une presse du clavier à été detectée et ajoute la touche activé dans un contenant qui est transmit à la logique du game à traiter pour modifier le jeux.
+- Load manager:
+    - Celui-ci a pour role de charger avant le lancement du jeux, les assets, images necessaires pour l'affichage. Cela réduit la latence lors du jeux en décalent le temps de latence lors du chargement de l'application.
+- Render manager:
+    - Il s'occupe d'afficher à chaque frame les elements du jeux qui bougent. Tout les ennemis, murs, projectiles et le joueur. 
+    - Il efface tout ces elements au début de chaque frame pour les réafficher apres dans leur nouvelle posisition.
+- Score manager:
+    - Il charge le fichier de score JSON, et prend le score final avec le nom et le stage pour l'ajouter au fichier JSON.
+    - Il renvoie aussi les donnée pou rles afficher dans le Leaderboard.
 ____________________
 Screens avec tkinter
 ^^^^^^^^^^^^^^^^^^^^
