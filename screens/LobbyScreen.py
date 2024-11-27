@@ -10,7 +10,7 @@ class LobbyScreen(tk.Frame):
         self.canvas.pack(fill="both", expand=True)
 
         # Get the background image from LoadManager
-        self.background_image = self.loadManager.get_resource('background')
+        self.background_image = self.loadManager.getMainBG()
         self.canvas.create_image(0, 0, image=self.background_image, anchor="nw")
 
         # Titre du lobby

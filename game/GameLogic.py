@@ -17,7 +17,11 @@ class GameLogic:
         self.callback_endSequence = callback_endSequence
         self.load_manager = load_manager
         self.inputManager = InputManager()
-        self.renderManager = RenderManager(self.canvas, self.load_manager.get_resource('background'))
+        
+        load_manager.resizeAllBackgrounds(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight())
+        bgs = self.load_manager.getBackgrounds()
+        print(bgs)
+        self.renderManager = RenderManager(self.canvas, bgs)
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
         
@@ -44,6 +48,7 @@ class GameLogic:
         
         self.loadShip()
         self.loadWals()
+        # self.reloadBackgrounds()
         self.stage_manager.generateStage()
         # print(self.board.ennemiesMatrix)
         self.game_loop()
@@ -91,13 +96,13 @@ class GameLogic:
             entity.update()
 
     def render(self):
-        self.renderManager.render(self.board.getEntities(), self.board)
+        self.renderManager.render(self.board.getEntities(), self.board, self.stage_manager.numStage)
         self.renderManager.renderInfos(self.board.points, self.stage_manager.numStage, self.board.mainShip.HP)
         
     def loadWals(self):
         wallSprite = self.load_manager.get_resource('wall')
         for i in range(3):
-            self.board.walls.append(Wall(self.board, Vector(i*600 + 100, self.board.height * 4/5), Vector(150, 42), wallSprite))  
+            self.board.walls.append(Wall(self.board, Vector(i*self.canvas.winfo_reqwidth()/3 + self.canvas.winfo_reqwidth()/8, self.board.height * 4/5), Vector(150, 42), wallSprite))  
     
     def loadShip(self):
         weaponsprite = self.load_manager.get_resource('fire')
@@ -109,6 +114,9 @@ class GameLogic:
         mainShip.pos.y = self.board.height * 7/8
         
         self.board.mainShip = mainShip
+        
+    # def reloadBackgrounds(self):
+    #     self.load_manager.resizeAllBackgrounds()
         
     def reset(self):
         self.board.reset()
@@ -137,10 +145,10 @@ class GameLogic:
     def unPause(self):
         self.running = True
         
-    def __del__(self):
-        self.stop()
-        del self.board
-        del self.render_manager
+    # def __del__(self):
+    #     self.stop()
+    #     del self.board
+    #     del self.render_manager
             
     def endSequence(self):
         # print("test")

@@ -20,5 +20,6 @@ class Wall(Element):
         return self.HP > 0
     
     def destroy(self):
-        self.board.walls.remove(self)
+        if self in self.board.walls:
+            self.board.walls.remove(self)
         
