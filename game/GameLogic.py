@@ -1,10 +1,11 @@
 from managers.InputManager import InputManager
 from managers.RenderManager import RenderManager
-from game.ship import Ship, Weapon, Enemy
-from game.wall import Wall
+from game.Elements.Ship import Ship
+from game.Elements.wall import Wall
 from divers.Vector import Vector
 from game.Board import Board
 from game.StageManager import Stage
+from game.Elements.Weapon import Weapon
 import time
 
 ## TODO : 
@@ -20,7 +21,7 @@ class GameLogic:
         
         load_manager.resizeAllBackgrounds(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight())
         bgs = self.load_manager.getBackgrounds()
-        print(bgs)
+        
         self.renderManager = RenderManager(self.canvas, bgs)
         
         self.board = Board(self.canvas.winfo_reqwidth(), self.canvas.winfo_reqheight(), self.load_manager)
@@ -48,9 +49,7 @@ class GameLogic:
         
         self.loadShip()
         self.loadWals()
-        # self.reloadBackgrounds()
         self.stage_manager.generateStage()
-        # print(self.board.ennemiesMatrix)
         self.game_loop()
         
     def stop(self):
@@ -70,11 +69,6 @@ class GameLogic:
             if not self.board.noEnemies() and self.board.isGameFinished():
                 self.endSequence()
             
-            
-            
-            # print(self.board.isGameFinished())
-            
-
 
         # Calculate time taken for this frame
         elapsed_time = time.time() - start_time
@@ -114,14 +108,10 @@ class GameLogic:
         mainShip.pos.y = self.board.height * 7/8
         
         self.board.mainShip = mainShip
-        
-    # def reloadBackgrounds(self):
-    #     self.load_manager.resizeAllBackgrounds()
-        
+    
     def reset(self):
         self.board.reset()
         self.stage_manager.reset()
-        # print(self.stage_manager.numStage)
         self.running = False
         
     def cheatCode(self, code):
@@ -145,18 +135,10 @@ class GameLogic:
     def unPause(self):
         self.running = True
         
-    # def __del__(self):
-    #     self.stop()
-    #     del self.board
-    #     del self.render_manager
-            
     def endSequence(self):
-        # print("test")
-        # self.pause()
         self.callback_endSequence(self.board.points)
         
     def get_points(self):
-        # print(self.board.points)
         return self.board.points
     
     def get_stage(self):

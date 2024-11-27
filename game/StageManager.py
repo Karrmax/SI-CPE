@@ -1,6 +1,9 @@
-from game.ship import EnemyClassic, Weapon, EnemyShooter, EnemyBoss
+from game.Elements.ennemies.EnemyClassic import EnemyClassic
+from game.Elements.ennemies.EnemyShooter import EnemyShooter
+from game.Elements.ennemies.EnemyBoss import EnemyBoss
+from game.Elements.Weapon import Weapon
 from divers.Vector import Vector 
-from game.wall import Wall
+from game.Elements.wall import Wall
 
 class Stage:
     def __init__(self, board, enemySprites):
