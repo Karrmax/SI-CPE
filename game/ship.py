@@ -171,13 +171,32 @@ class Ship(Character):
             self.shoot()
             
     def move(self):
-        if not ((self.pos.x + self.speed.x + self.size.x>= self.board.width - 15) or (self.pos.x + self.speed.x <= 15)) :    
+        if self.canMoveHorizontaly() and not ((self.pos.x + self.speed.x + self.size.x>= self.board.width - 15) or (self.pos.x + self.speed.x <= 15)) :    
             self.pos.x += self.speed.x
-        if not ((self.pos.y + self.speed.y + self.size.y >= self.board.height - 15) or (self.pos.y + self.speed.y <= self.board.allayZone)) :       
+        if self.canMoveVerticaly() and not ((self.pos.y + self.speed.y + self.size.y >= self.board.height - 15) or (self.pos.y + self.speed.y <= self.board.allayZone)) :       
             self.pos.y += self.speed.y  
             
     def isAlive(self):
         return self.HP > 0
+    
+    def canMoveHorizontaly(self):
+        newPos = self.pos + self.speed
+        newPos.y -= self.speed.y
+        nextShip = Ship(self.board, self.HP, newPos, self.size, self.weapon, self.sprite, self.speed)
+        for i in self.board.walls:
+            if nextShip.touched(i):
+                return False
+        return True
+    
+    def canMoveVerticaly(self):
+        newPos = self.pos + self.speed
+        newPos.x -= self.speed.x
+        # newPos
+        nextShip = Ship(self.board, self.HP, newPos, self.size, self.weapon, self.sprite, self.speed)
+        for i in self.board.walls:
+            if nextShip.touched(i):
+                return False
+        return True
         
         
         
