@@ -109,11 +109,14 @@ class GameLogic:
             self.changeState()
             self.update()
             self.render()
+            
+            if not self.board.noEnemies() and self.board.isGameFinished():
+                self.endSequence()
 
-            elapsed_time = time.time() - start_time
-            sleep_time = max(0, self.frame_time - elapsed_time)
+        elapsed_time = time.time() - start_time
+        sleep_time = max(0, self.frame_time - elapsed_time)
 
-            self.canvas.after(int(sleep_time * 1000), self.game_loop)
+        self.canvas.after(int(sleep_time * 1000), self.game_loop)
 
     def changeState(self):
         """

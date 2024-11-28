@@ -45,7 +45,7 @@ class GameScreen(tk.Frame):
         self.gameLogic = GameLogic(self, load_manager, self.callback_endSequence, target_fps=60)
 
         # Bind the Esc key to pause the game
-        root.bind("<Escape>", self.toggle_pause)
+        root.bind("<KeyRelease-Escape>", self.toggle_pause)
 
         self.paused = False
         self.pause_menu_buttons = []
@@ -58,7 +58,6 @@ class GameScreen(tk.Frame):
         """
         self.switch_callback("lobby")
         self.gameLogic = GameLogic(self.canvas, self.load_manager, self.callback_endSequence, target_fps=60)
-        print('go lobby')
         
     def start_game_loop(self):
         """
@@ -73,7 +72,7 @@ class GameScreen(tk.Frame):
         Args:
             event (tk.Event, optional): L'événement de la touche Esc. Par défaut, None.
         """
-        if self.paused:
+        if self.paused: 
             self.resume_game()
         else:
             self.pause_game()
@@ -82,6 +81,8 @@ class GameScreen(tk.Frame):
         """
         Met le jeu en pause et affiche le menu de pause.
         """
+        
+        # print("pause game")
         self.paused = True
         self.gameLogic.pause()
 
@@ -124,11 +125,10 @@ class GameScreen(tk.Frame):
 
         # Supprimer le rectangle gris et le texte "Paused"
         self.canvas.delete("all")
-        # self.canvas.create_image(0, 0, image=self.load_manager.get_resource('background'), anchor="nw")
 
         # Rebind the Esc key to pause the game
-        self.canvas.focus_set()
-        self.canvas.bind("<Escape>", self.toggle_pause)
+        self.gameLogic.bindAll(self)
+        self.focus_set()
 
     def submit_cheat_code(self):
         """

@@ -32,7 +32,7 @@ class LeaderboardScreen(tk.Frame):
         self.switch_callback = switch_callback
         self.loadManager = loadManager
 
-        root.bind("<KeyRelease-Escape>", self.return_to_lobby)
+        # root.bind("<KeyRelease-Escape>", self.return_to_lobby)
         # root.bind("<Visibility>", lambda event: self.reload())
         self.reload()
         
