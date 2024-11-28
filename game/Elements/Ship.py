@@ -1,4 +1,5 @@
 from game.Elements.Character import Character
+from game.Elements.Element import Element
 from divers.Vector import NULLVECTOR
 
 class Ship(Character): 
@@ -40,7 +41,7 @@ class Ship(Character):
         newPos.y -= self.speed.y
         nextShip = Ship(self.board, self.HP, newPos, self.size, self.weapon, self.sprite, self.speed)
         for i in self.board.walls:
-            if nextShip.touched(i):
+            if Element.touched(nextShip, i):
                 return False
         return True
     
@@ -50,6 +51,6 @@ class Ship(Character):
         # newPos
         nextShip = Ship(self.board, self.HP, newPos, self.size, self.weapon, self.sprite, self.speed)
         for i in self.board.walls:
-            if nextShip.touched(i):
+            if Element.touched(nextShip, i):
                 return False
         return True

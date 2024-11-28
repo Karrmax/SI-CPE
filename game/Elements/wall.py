@@ -1,4 +1,4 @@
-from game.ship import Element
+from game.Elements.Element import Element
 
 class Wall(Element):
     def __init__(self, board, position, size, sprite, HP = 5) -> None:
