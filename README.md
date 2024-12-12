@@ -86,12 +86,21 @@ Fonctions des Vecteurs
 
 On à crée une class VECTEUR, pour traiter toute information pour des vecteurs.
 Etant dans un milieu en 2D (selon x,y), il y a plus demande pour modifier ces vecteurs à travers le jeux.
+De même il y a une class CoolDown pour évité le spam du joueur lorsqu'il tire.
 
 ________________
 Elements du jeux
 ^^^^^^^^^^^^^^^^
 
-On utilise
+Ce sont toute les class de definition des assets sur le plateau de jeux, avec les posisiotn, leur sprite,
+leur pv et d'autres information propre a chaque entité.
+
+____
+Game
+^^^^
+
+Les Fichiers Board.py, GameLogic.py et StageManager.py sont les programs qui gère toute logique du jeux,
+appelant d'autres fonction et les class des différents object sur l'écran.
 
 ________
 Managers
