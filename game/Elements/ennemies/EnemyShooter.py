@@ -3,6 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: EnemyShooter
 Description: Cette classe représente un ennemi tireur dans le jeu. Elle hérite de la classe Enemy et gère les sprites, les points de vie et les attaques de l'ennemi tireur.
 TODO: Ajouter des comportements spécifiques pour l'ennemi tireur, comme des tirs en rafale ou des mouvements d'esquive.
+Date de création: 2024-16-10
+Date de modification: 2023-10-10
 """
 
 from game.Elements.Enemy import Enemy

@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: GameLogic
 Description: Cette classe gère la logique du jeu, y compris les entrées utilisateur, le rendu, les mises à jour du jeu et la gestion des niveaux.
 TODO: Ajouter des comportements spécifiques pour la logique du jeu, comme des animations de fin de niveau, des effets visuels ou des interactions avancées avec les éléments du jeu.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-04-12
 """
 
 from managers.InputManager import InputManager

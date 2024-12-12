@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: Projectile
 Description: Cette classe représente un projectile dans le jeu. Elle hérite de la classe Element et gère les déplacements, les dégâts et les collisions des projectiles.
 TODO: Ajouter des comportements spécifiques pour les projectiles, comme des effets visuels, des types de projectiles différents ou des interactions spéciales avec d'autres éléments.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-04-12
 """
 
 from game.Elements.Element import Element

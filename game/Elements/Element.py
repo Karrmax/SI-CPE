@@ -3,6 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: Element
 Description: Cette classe représente un élément de base dans le jeu. Elle gère les positions, les tailles, les sprites et les collisions des éléments.
 TODO: Ajouter des comportements spécifiques pour les éléments, comme des animations, des interactions avec d'autres éléments ou des effets visuels.
+Date de création: 2024-16-11
+Date de modification: 2023-10-10
 """
 
 from divers.Vector import Vector, NULLVECTOR

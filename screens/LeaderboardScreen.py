@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: LeaderboardScreen
 Description: Cette classe représente l'écran du tableau des scores. Elle affiche les meilleurs scores des joueurs et permet de revenir au lobby.
 TODO: Ajouter des fonctionnalités spécifiques pour le tableau des scores, comme la possibilité de filtrer les scores, de rechercher des joueurs ou d'afficher des statistiques avancées.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-18-11
+Date de modification: 2024-01-12
 """
 
 import tkinter as tk

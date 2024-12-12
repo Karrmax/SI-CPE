@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: Board
 Description: Cette classe représente le plateau de jeu. Elle gère les dimensions du plateau, les ennemis, le vaisseau principal, les projectiles, les murs et les collisions.
 TODO: Ajouter des comportements spécifiques pour le plateau de jeu, comme des niveaux différents, des obstacles dynamiques ou des effets visuels.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-20-11
+Date de modification: 2024-04-12
 """
 
 from game.Elements.Enemy import Enemy

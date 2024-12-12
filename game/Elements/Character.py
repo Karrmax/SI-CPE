@@ -3,6 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: Character
 Description: Cette classe représente un personnage dans le jeu. Elle hérite de la classe Element et gère les déplacements, les points de vie, les armes et les collisions du personnage.
 TODO: Ajouter des comportements spécifiques pour le personnage, comme des animations, des compétences spéciales ou des améliorations d'armes.
+Date de création: 2024-16-11
+Date de modification: 2024-04-12
 """
 
 from game.Elements.Element import Element

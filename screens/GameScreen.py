@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: GameScreen
 Description: Cette classe représente l'écran de jeu. Elle gère l'affichage du jeu, les pauses, les scores et les interactions utilisateur.
 TODO: Ajouter des fonctionnalités spécifiques pour l'écran de jeu, comme des animations de transition, des effets visuels ou des interactions avancées avec les éléments du jeu.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-18-11
+Date de modification: 2024-10-12
 """
 
 import tkinter as tk
@@ -37,6 +37,10 @@ class GameScreen(tk.Frame):
         self.switch_callback = switch_callback
         self.load_manager = load_manager
         
+        # reset le menu
+        if isinstance(root, (tk.Tk, tk.Toplevel)):
+            root.config(menu=None)
+        
         # Création du canvas avec la largeur et la hauteur de l'écran, fond noir
         self.canvas = tk.Canvas(self, width=root.winfo_screenwidth(), height=root.winfo_screenheight(), bg="black")
         self.canvas.pack()
@@ -57,7 +61,7 @@ class GameScreen(tk.Frame):
         Change l'écran pour le lobby et réinitialise la logique du jeu.
         """
         self.switch_callback("lobby")
-        self.gameLogic = GameLogic(self.canvas, self.load_manager, self.callback_endSequence, target_fps=60)
+        self.gameLogic = GameLogic(self, self.load_manager, self.callback_endSequence, target_fps=60)
         
     def start_game_loop(self):
         """
@@ -179,6 +183,11 @@ class GameScreen(tk.Frame):
         username = self.username_entry.get()
         points = self.gameLogic.get_points()
         stage = self.gameLogic.get_stage()
+        if username == "":
+            # open a messagebox
+            messagebox = tk.messagebox
+            messagebox.showwarning("Error", "Entrez un nom d'utilisateur")
+            return
         self.scoreManager.addScore(username, points, stage)
         print(f"Saving score: {points} for user: {username}")
         self.goLobby()
@@ -187,6 +196,6 @@ class GameScreen(tk.Frame):
         """
         Redémarre le jeu.
         """
-        self.gameLogic = GameLogic(self, self.load_manager, self.callback_endSequence, target_fps=60)
+        self.gameLogic = GameLogic(self , self.load_manager, self.callback_endSequence, target_fps=60)
         self.resume_game()
         self.start_game_loop()

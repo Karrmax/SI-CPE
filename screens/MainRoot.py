@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: MainRoot
 Description: Cette classe représente la fenêtre principale de l'application et gère la navigation entre les différents écrans.
 TODO: Ajouter des fonctionnalités spécifiques pour la fenêtre principale, comme des animations de transition, des effets visuels ou des interactions avancées avec les éléments de l'interface utilisateur.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-18-11
+Date de modification: 2024-10-12
 """
 
 import tkinter as tk

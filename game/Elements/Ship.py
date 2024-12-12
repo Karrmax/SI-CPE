@@ -1,3 +1,12 @@
+"""
+Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
+Classe: Ship
+Description: Cette classe représente le vaisseau principal dans le jeu. Elle hérite de la classe Character et gère les déplacements, les dégâts et les collisions des projectiles.
+TODO: ajouter différentes armes par défaut, des améliorations d'armes et des compétences spéciales pour le vaisseau principal.
+Date de création: 2024-16-11
+Date de modification: 2024-04-12
+"""
+
 from game.Elements.Character import Character
 from game.Elements.Element import Element
 from divers.Vector import NULLVECTOR
@@ -28,9 +37,9 @@ class Ship(Character):
             self.shoot()
             
     def move(self):
-        if self.canMoveHorizontaly() and not ((self.pos.x + self.speed.x + self.size.x>= self.board.width - 15) or (self.pos.x + self.speed.x <= 15)) :    
+        if self.canMoveHorizontaly() and not ((self.pos.x + self.speed.x + self.size.x>= self.board.width - self.size.x/2) or (self.pos.x + self.speed.x <= self.size.x/2)) :    
             self.pos.x += self.speed.x
-        if self.canMoveVerticaly() and not ((self.pos.y + self.speed.y + self.size.y >= self.board.height - 15) or (self.pos.y + self.speed.y <= self.board.allayZone)) :       
+        if self.canMoveVerticaly() and not ((self.pos.y + self.speed.y + self.size.y >= self.board.height - self.size.y/2) or (self.pos.y + self.speed.y <= self.board.allayZone)) :       
             self.pos.y += self.speed.y  
             
     def isAlive(self):
@@ -41,7 +50,7 @@ class Ship(Character):
         newPos.y -= self.speed.y
         nextShip = Ship(self.board, self.HP, newPos, self.size, self.weapon, self.sprite, self.speed)
         for i in self.board.walls:
-            if Element.touched(nextShip, i):
+            if Element.touched(nextShip, i) and not Element.touched(self, i):
                 return False
         return True
     
@@ -51,6 +60,6 @@ class Ship(Character):
         # newPos
         nextShip = Ship(self.board, self.HP, newPos, self.size, self.weapon, self.sprite, self.speed)
         for i in self.board.walls:
-            if Element.touched(nextShip, i):
+            if Element.touched(nextShip, i) and not Element.touched(self, i):
                 return False
         return True

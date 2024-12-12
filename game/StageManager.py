@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: StageManager
 Description: Cette classe gère les différents niveaux (stages) du jeu, y compris la génération des ennemis et des boss pour chaque niveau.
 TODO: Ajouter des comportements spécifiques pour les niveaux, comme des animations de transition, des effets visuels ou des interactions avancées avec les él��ments du jeu.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-20-11
+Date de modification: 2024-04-12
 """
 
 from game.Elements.ennemies.EnemyClassic import EnemyClassic
@@ -51,7 +51,7 @@ class StageManager:
             matrix = self.generateStage4(matrix)
         else:
             matrix = self.generateClassicStage(matrix)
-        if self.numStage != 0:
+        if self.numStage != 1:
             self.board.walls.append(Wall(self.board, Vector(600 + 100, self.board.height * 4/5), Vector(150, 42), self.board.load_manager.resources['wall'])) 
         self.board.ennemiesMatrix = matrix
 

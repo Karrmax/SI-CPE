@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: Weapon
 Description: Cette classe représente une arme dans le jeu. Elle gère les projectiles, les dégâts, le sprite et le cooldown de l'arme.
 TODO: Ajouter des comportements spécifiques pour les armes, comme des types de projectiles différents, des améliorations d'armes ou des effets visuels.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-04-12
 """
 
 from game.Elements.Projectile import Projectile

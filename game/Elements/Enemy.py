@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: Enemy
 Description: Cette classe représente un ennemi dans le jeu. Elle hérite de la classe Character et gère les points de vie, les attaques et les comportements des ennemis.
 TODO: Ajouter des comportements spécifiques pour les ennemis, comme des mouvements aléatoires, des attaques spéciales ou des interactions avec d'autres éléments.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-04-12
 """
 
 from game.Elements.Character import Character

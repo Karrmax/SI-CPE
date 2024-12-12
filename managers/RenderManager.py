@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: RenderManager
 Description: Cette classe gère le rendu des entités et des arrière-plans sur le canvas du jeu.
 TODO: Ajouter des fonctionnalités spécifiques pour le gestionnaire de rendu, comme des effets visuels avancés, des animations ou des transitions.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-10-12
 """
 
 from tkinter import NW
@@ -41,8 +41,9 @@ class RenderManager:
             board (Board): Le plateau de jeu.
             stage (int): Le numéro du niveau actuel.
         """
-        if stage >= len(self.background_images):
-            stage = len(self.background_images) - 1
+        # if stage >= len(self.background_images):
+        # stage = len(self.background_images) - 1
+        stage = stage % (len(self.background_images)) + 1
         self.background_image = self.background_images[stage]
         
         self.canvas.delete("all")

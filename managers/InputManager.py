@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: InputManager
 Description: Cette classe gère les entrées utilisateur pour le jeu. Elle permet de suivre les touches pressées et relâchées.
 TODO: Ajouter des fonctionnalités spécifiques pour la gestion des entrées, comme la prise en charge des manettes de jeu ou des gestes tactiles.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-10-12
 """
 
 class InputManager:

@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: ScoreManager
 Description: Cette classe gère les scores des joueurs, y compris la récupération et l'ajout de scores au leaderboard.
 TODO: Ajouter des fonctionnalités spécifiques pour la gestion des scores, comme la suppression de scores, la mise à jour de scores existants ou l'intégration avec une base de données en ligne.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-10-12
 """
 
 import json

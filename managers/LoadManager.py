@@ -3,8 +3,8 @@ Auteur: Jules GRIVOT PELISSON, Raphael Dziopa
 Classe: LoadManager
 Description: Cette classe gère le chargement des ressources pour le jeu, y compris les images, les sons et les arrière-plans.
 TODO: Ajouter des fonctionnalités spécifiques pour le gestionnaire de chargement, comme la gestion des ressources audio ou le préchargement des ressources pour améliorer les performances.
-Date de création: 2023-10-10
-Date de modification: 2023-10-10
+Date de création: 2024-16-11
+Date de modification: 2024-10-12
 """
 
 from PIL import Image, ImageTk
@@ -44,12 +44,12 @@ class LoadManager:
         self.enemyRessources["fireDown"] = ImageTk.PhotoImage(Image.open("ressources/images/fireDown.png").resize((10, 58)))
         
         
-        self.backgroundRessources.append(Image.open("ressources/images/background.jpg").resize((1920, 1080)))
-        self.backgroundRessources.append(Image.open("ressources/images/zvenus8bit.png").resize((1920, 1080)))
-        self.backgroundRessources.append(Image.open("ressources/images/zearth8bit.jpg").resize((1920, 1080)))
-        self.backgroundRessources.append(Image.open("ressources/images/zsaturn8bit.png").resize((1920, 1080)))
-        self.backgroundRessources.append(Image.open("ressources/images/zjupiter8bit.png").resize((1920, 1080)))
-        self.backgroundRessources.append(Image.open("ressources/images/zsun8bit.png").resize((1920, 1080)))
+        self.backgroundRessources.append(LoadManager.center_zoom_and_resize(Image.open("ressources/images/background.jpg")))
+        self.backgroundRessources.append(LoadManager.center_zoom_and_resize(Image.open("ressources/images/zvenus8bit.png"))) 
+        self.backgroundRessources.append(LoadManager.center_zoom_and_resize(Image.open("ressources/images/zearth8bit.jpg")))
+        self.backgroundRessources.append(LoadManager.center_zoom_and_resize(Image.open("ressources/images/zsaturn8bit.png")))
+        self.backgroundRessources.append(LoadManager.center_zoom_and_resize(Image.open("ressources/images/zjupiter8bit.png")))
+        # self.backgroundRessources.append(LoadManager.center_zoom_and_resize(Image.open("ressources/images/zsun8bit.png")))
         
         print("Resources loaded.")
         
@@ -97,6 +97,47 @@ class LoadManager:
         """
         return ImageTk.PhotoImage(self.backgroundRessources[0])
             
+    from PIL import Image
+    
+    @staticmethod
+    def center_zoom_and_resize(image, output_size = (1920, 1080), zoom_factor = 1):
+        """
+        Zoom into the center of an image and resize it to the desired dimensions.
+
+        Args:
+            image_path (str): Path to the input image file.
+            output_size (tuple): The desired output size as (width, height).
+            zoom_factor (float): The factor by which to zoom in (e.g., 2.0 for 2x zoom).
+
+        Returns:
+            Image: The processed image.
+        """
+        # Open the image
+        # image = Image.open(image_path)
+
+        # Get original dimensions
+        width, height = image.size
+
+        # Calculate the dimensions of the zoomed area
+        zoom_width = int(width / zoom_factor)
+        zoom_height = int(height / zoom_factor)
+
+        # Calculate the coordinates to center the zoomed area
+        center_x, center_y = width // 2, height // 2
+        left = max(center_x - zoom_width // 2, 0)
+        top = max(center_y - zoom_height // 2, 0)
+        right = min(center_x + zoom_width // 2, width)
+        bottom = min(center_y + zoom_height // 2, height)
+
+        # Crop the image to the zoomed area
+        cropped_image = image.crop((left, top, right, bottom))
+
+        # Resize the cropped image to the desired output size
+        resized_image = cropped_image.resize(output_size, Image.LANCZOS)
+
+        return resized_image
+
+
     def __del__(self):
         """
         Détruit le gestionnaire de chargement des ressources et libère les ressources.
