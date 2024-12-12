@@ -3,6 +3,8 @@
 SPACE INVADERS  [ 3ETI ]
 GRIVOT PELISSON Jules & DZIOPA Raphael
 
+GitHub : [https://github.com/Karrmax/SI-CPE](https://github.com/Karrmax/SI-CPE)
+
 Table des Matières 
 
 1. Présentation
@@ -26,7 +28,9 @@ D'après les cours de CS-DEV avec les notion de python, tkinter, les classes dan
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 FONCTIONNALITES:
-Nous avons voulu que notre jeu contiennes des fonctionnalitées uniques tel que le fait de pouvoir se déplacer de haut en bas dans une zone réduite en plus que le classique mouvement de droite à gauche, cela permet des stratégies vis à vis du joueur plus poussées. Le jeu s'accélère à chaque stage et des nouveaux ennemies, qui valent plus de points, apparaissent. Nous commençons avec 5 vies et les ennemies peuvent nous infliger 1 (tireur simple) ou 2 (Boss) points de dégat. Notre jeu contient un leaderboard pour plus de rivélité avec les autres joueurs. Certaines fonctionnalités ont surement été ommises pour s'en assurer nous vous invitons à jouer !!! 
+Nous avons voulu que notre jeu contiennes des fonctionnalitées uniques tel que le fait de pouvoir se déplacer de haut en bas dans une zone réduite en plus que le classique mouvement de droite à gauche, cela permet des stratégies vis à vis du joueur plus poussées. Le jeu s'accélère à chaque stage et des nouveaux ennemies, qui valent plus de points, apparaissent. Nous commençons avec 5 vies et les ennemies peuvent nous infliger 1 (tireur simple) ou 2 (Boss) points de dégat. Notre jeu contient un leaderboard pour plus de rivélité avec les autres joueurs. Certaines fonctionnalités ont surement été ommises pour s'en assurer nous vous invitons à jouer !!!
+
+-Nous avons implémenté à plusieurs endroits des listes et structures de données plus complexes. l'exemple le plus parlant serait la liste de liste des aliens dans le fichier Board qui est ennemiesMatrix.
 ________________________________________________________________________________________________
 ////////////////////////////////////////////////////////////////////////////////////////////////
 BIBLIOGRAPHIE:
