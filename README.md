@@ -23,6 +23,10 @@ PRESENTATION:
 Space Invader. Le Jeux du groupe de GRIVOT PELISSON Jules et DZIOPA Raphael.
 
 D'après les cours de CS-DEV avec les notion de python, tkinter, les classes dans python, et des ajouts de JSON.
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+FONCTIONNALITES:
+Nous avons voulu que notre jeu contiennes des fonctionnalitées uniques tel que le fait de pouvoir se déplacer de haut en bas dans une zone réduite en plus que le classique mouvement de droite à gauche, cela permet des stratégies vis à vis du joueur plus poussées. Le jeu s'accélère à chaque stage et des nouveaux ennemies, qui valent plus de points, apparaissent. Nous commençons avec 5 vies et les ennemies peuvent nous infliger 1 (tireur simple) ou 2 (Boss) points de dégat. Notre jeu contient un leaderboard pour plus de rivélité avec les autres joueurs. Certaines fonctionnalités ont surement été ommises pour s'en assurer nous vous invitons à jouer !!! 
 ________________________________________________________________________________________________
 ////////////////////////////////////////////////////////////////////////////////////////////////
 BIBLIOGRAPHIE:
