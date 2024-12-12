@@ -129,6 +129,11 @@
             "name": "La maman de Jules",
             "score": 3360,
             "stage": 9
+        },
+        {
+            "name": "Jules",
+            "score": 3480,
+            "stage": 9
         }
     ]
 }

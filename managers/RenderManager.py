@@ -43,8 +43,8 @@ class RenderManager:
         """
         # if stage >= len(self.background_images):
         # stage = len(self.background_images) - 1
-        stage = stage % (len(self.background_images)) + 1
-        self.background_image = self.background_images[stage]
+        stage = stage % (len(self.background_images)) - 1   
+        self.background_image = self.background_images[1:][stage]
         
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.background_image, anchor="nw")
